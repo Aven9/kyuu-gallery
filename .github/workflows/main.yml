@@ -8,8 +8,8 @@ on:
   #   - cron: '0 12 * * *'
 
 env:
-  GIT_USER: lfkdsk # change to yourself
-  GIT_EMAIL: lfkdsk@gmail.com # change to yourself
+  GIT_USER: Aven9 # change to yourself
+  GIT_EMAIL: avenj9@gmail.com # change to yourself
   THEME_REPO: lfkdsk/hexo-theme-type
   THEME_BRANCH: main
   TEMPLATE_REPO: lfkdsk/album_template
