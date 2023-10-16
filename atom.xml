@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Kyuu Gallery</title>
+  
+  <subtitle>Life is a moment.</subtitle>
+  <link href="https://aven9.github.io/kyuu-gallery/atom.xml" rel="self"/>
+  
+  <link href="https://aven9.github.io/kyuu-gallery/"/>
+  <updated>2023-10-16T17:27:21.607Z</updated>
+  <id>https://aven9.github.io/kyuu-gallery/</id>
+  
+  <author>
+    <name>kyuu</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>照片集</title>
+    <link href="https://aven9.github.io/kyuu-gallery/2023/undefined/"/>
+    <id>https://aven9.github.io/kyuu-gallery/2023/undefined/</id>
+    <published>2023-10-16T17:27:21.607Z</published>
+    <updated>2023-10-16T17:27:21.607Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+</feed>
