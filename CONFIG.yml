@@ -27,6 +27,9 @@ nav:
   归档: 
     link: https://aven9.github.io
     icon: inbox
-
+  地图:
+    link: /gallery/location
+    icon: aiming
+    
 thumbnail_url: https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/
 base_url: https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@master
