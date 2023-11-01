@@ -27,6 +27,7 @@ var appDaily = {
     header;
   },
 };
+
 function scrollto(comment) {
   document.querySelector('#comment').scrollIntoView(true);
 }
@@ -103,6 +104,9 @@ $(".itp-column-toc ol").replaceWith(function () {
 $('img')
   .not(
     'footer img,.drawer-img, .mdui-card-header-avatar,.itp-mag-content img,.itp-post-author-avatar img,.itp-post-gallery img,.vavatar img,.nofancy img,.leaflet-marker-icon'
+  )
+  .not(
+    '.nofancy'
   )
   .each(function () {
     // $(this).attr("data-fancybox", "gallery"); 直接给img添加data-fancybox会导致点击图片后图片消失
