@@ -22,7 +22,7 @@
   <meta name="author" content="kyuu">
   
   <!--Open Graph Title-->
-  <meta property="og:title" content="照片集" />
+  <meta property="og:title" content="数据查询" />
   <!--Open Graph Description-->
   <meta property="og:description" content="拿起相机，认真思考" />
   <!--Open Graph Site Name-->
@@ -38,7 +38,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- Title -->
   
-  <title>照片集 - Kyuu Gallery</title>
+  <title>数据查询 - Kyuu Gallery</title>
   <!-- 添加到主屏后的标题（iOS 6 新增） -->
   <meta name="apple-mobile-web-app-title" content="Kyuu Gallery">
   <!-- 是否启用 WebApp 全屏模式 -->
@@ -245,108 +245,185 @@
   }
 </style>
   <!-- Main Content -->
-  <section class="pjax-area">
-  <div class="content-area album-area">
-    
-    <div class="container gpro-slogan title">
-      The moments when I pressed the shutter, the moments are forever.
-    </div>
-    
-    <div class="container gpro-container grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      
-      
-      <a href="GongQingForestPark">
-        <div class="gpro-tile lazy" data-src="GongQingForestPark/DSCF7717.webp">
-          <div class="gpro-tile-descr">共青森林公园</div>
-        </div>
-      </a>
-      
-    </div>
-  </div>
-  <script>
-    $(function() {
-      $("div.lazy").lazyload();
-    });
-  </script>
-  <style>
-    body {
-      background-color: #fff;
-    }
+  <script src="js/sql-wasm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ace-builds@1.31.2/src-min-noconflict/ace.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/ace-builds@1.31.2/css/ace.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
 
-    .album-area {
-      margin-top: 120px;
-      padding-left: 16px;
-      padding-right: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+<section class="pjax-area">
+    <div id="editor"></div>
+    <button id="querybox" class="album-next-one">QUERY</button>
+    <div id="info"></div>
+    <div id="table-wrapper"></div>
+    <div id="error"></div>
+    <script type="module">
+        const initSqlJs = window.initSqlJs;
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/sql");
+        editor.session.setUseWrapMode(true);
+        editor.setAutoScrollEditorIntoView(true);
+        editor.setOption("maxLines", 100); 
+        const SQL = await initSqlJs({
+            locateFile: file => `/kyuu-gallery/js/sql-wasm.wasm`
+        });
+        const sqlph = getParam('sql');
+        if (sqlph !== null && sqlph != "") {
+            editor.setValue(`/* tables(album, photo, location, exifdata) */\n` + sqlph.replace(/^"|"$/g, '').trim());
+        } else {
+            editor.setValue(`/* tables(album, photo, location, exifdata) */
+SELECT photo.*, exifdata.maker
+FROM photo
+LEFT OUTER JOIN exifdata
+ON photo.exif_data_id = exifdata.id
+WHERE photo.location_id NOT NULL AND
+exifdata.maker = 'FUJIFILM' ORDER BY RANDOM() LIMIT 5;`);            
+        }
+        // Create a database
+        const sqlite = await fetch('sqlite.db');
+        const sqlite_buf = await sqlite.arrayBuffer();
+        const db = new SQL.Database(new Uint8Array(sqlite_buf));
+        function isImage(filename) {
+            const ext = filename.split('.').pop().toLowerCase();
+            return ['jpg', 'jpeg', 'gif', 'png', 'bmp', 'svg', 'webp'].includes(ext);
+        }
+        function query() {
+            const wrapper = document.getElementById('table-wrapper')
+            wrapper.innerHTML = '';
+            $('#error').text('');
+            $('#info').text('');
+            const q = editor.getValue();
+            var data = null;
+            try {
+                const start = performance.now();
+                data = db.exec(q);
+                const duration = performance.now() - start;
+                $('#info').text('query: ' + duration + 'ms');
+            } catch (error) {
+                $('#error').text(error);
+                return;
+            }
+            // console.log(data);
+            for (const item of data) {
+                const table = document.createElement('table');
+                table.classList = 'ln-table table table-hover table-responsive';
+                const thead = table.createTHead();
+                thead.classList.add('thead-dark');
+                const row = thead.insertRow();
 
-    .gpro-slogan {
-      text-align: center;
-      font-size: 36px;
-      font-weight: 700;
-      color: #3D4350;
-    }
+                wrapper.appendChild(table);
+                for (const column of item.columns) {
+                    const th = document.createElement('th');
+                    th.scope = 'col';
+                    const text = document.createTextNode(column);
+                    th.appendChild(text);
+                    row.appendChild(th);
+                }
 
-    .gpro-container {
-      margin-top: 120px;
-      gap: 8px;
-    }
+                // 添加数据行
+                const tbody = table.createTBody();
+                for (const row of item.values) {
+                    const tr = tbody.insertRow();
+                    for (const cell of row) {
+                        const td = tr.insertCell();
+                        if (isImage(cell + "")) {
+                            const a = document.createElement('a');
+                            a.text = cell
+                            a.setAttribute('href', 'photo?name=' + cell);
+                            td.appendChild(a);
+                            const img = document.createElement('img');
+                            img.style.width = '200px'
+                            img.src = 'https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/' + cell.replace(/\.\w+$/, '.webp');
+                            addBackUp(img, '/', cell.replace(/\.\w+$/, '.webp'))
+                            td.appendChild(img)
+                            continue
+                        }
+                        const text = document.createTextNode(cell);
+                        td.appendChild(text);
+                    }
+                }
+            }
+        }
+        $("#querybox").click(query)
+        $("#querybox").click()
+    </script>
+    <style>
+        #error {
+            color: red;
+            justify-content: center;
+            margin: 0 auto;
+            text-align: center;
+        }
 
-    .gpro-tile {
-      aspect-ratio: 3 / 2;
-      background-position: center;
-      background-size: cover;
-      border-radius: 5px;
-      transition: all .15s ease-in-out;
-      min-height: 211px;
-    }
+        #info {
+            color: greenyellow;
+            justify-content: center;
+            margin: 0 auto;
+            text-align: center;
+        }
 
-    .gpro-tile:hover {
-      box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
-      transform: scale(1.02);
-      transition: all .15s ease-in-out;
-    }
+        #table-wrapper {
+            margin-top: 20px;
+            max-width: 100%;
+            overflow-x: auto;
+        }
 
-    .gpro-tile-descr {
-      position: relative;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(#00000000 50%, #00000055 100%);
-      color: #fff;
-      font-size: 14px;
-      border-radius: 5px;
-      opacity: 0;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      text-overflow: clip;
-      transition: all .15s ease-in-out;
-      padding-bottom: .85em;
-    }
+        ln-table {
+            width: auto;
+            margin: 0 auto;
+            margin-top: 20px;
+            padding: 20px;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
 
-    .gpro-tile-descr:hover {
-      opacity: 1;
-      transition: all .15s ease-in-out;
-    }
+        #editor {
+            width: 100%;
+            height: auto;
+            min-height: 200px;
+            margin: 0 auto;
+            font-size: 14px;
+        }
 
-    @media (max-width: 768px) {
-      .gpro-slogan {
-        font-size: 28px;
-      }
+        @media (min-width: 769px) {
+            #editor {
+                margin-top: 130px;
+                font-size: 18px;
+            }
+        }
 
-      .content-area {
-        margin-top: 80px;
-      }
+        #querybox {
+            margin: 0 auto;
+            margin-top: 10px;
+        }
 
-      .gpro-container {
-        margin-top: 60px;
-      }
-    }
-  </style>
+        .album-next-one {
+            margin-top: 10px;
+            display: block;
+            text-align: center;
+            border-style: solid;
+            border-color: black;
+            background-color: white;
+            margin: 0 8px;
+            padding: 1em 1.5em;
+            border-width: 2px;
+            font-weight: bold;
+        }
+
+        .album-next-one:hover {
+            background-color: black;
+            color: white;
+        }
+
+        .album-next-one:active {
+            background-color: white;
+            color: black;
+        }
+    </style>
 </section>
   <!-- Footer -->
   <!-- Footer -->

@@ -399,9 +399,11 @@
 <!-- highlightjs -->
 
 
-<script src="/kyuu-gallery/js/highlight.min.js" async></script>
+<script src="/kyuu-gallery/js/highlight.min.js"></script>
 
-<script>window.addEventListener('load', () => hljs.initHighlighting());</script>
+<script>window.addEventListener('load', () => {
+  hljs.highlightAll(); // initialize highlighting
+});</script>
 <script>
   $("pre.code").each(function() {
     $(this).html("<ol><li>" + $(this).html().replace(/\n/g, "\n</li><li>") + "\n</li></ol>");

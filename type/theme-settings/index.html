@@ -254,7 +254,7 @@
       <div class="itp-m3-card post-cover">
         <div class="itp-m3-card-cover">
           <div class="itp-m3-cover-bg" style="
-          background-image: url(https://imgur.lzmun.com/picgo/after2022/6DD1FBC3-AD8A-4340-842D-6ACF531F8291_1_105_c.jpeg_itp);
+          /* background-image: url(https://imgur.lzmun.com/picgo/after2022/6DD1FBC3-AD8A-4340-842D-6ACF531F8291_1_105_c.jpeg_itp); */
           background-size: cover;
           background-position: center center;
         ">
@@ -339,7 +339,7 @@ random_thumbnail: https://cdn.jsdelivr.net/gh/photup/hexo-theme-type-random_pics
       </div>
       
     </div>
-    <div class="right-area">
+    <!-- <div class="right-area">
       
       
 
@@ -348,7 +348,7 @@ random_thumbnail: https://cdn.jsdelivr.net/gh/photup/hexo-theme-type-random_pics
 </div>
 
       
-    </div>
+    </div> -->
   </div>
   
   <!--
@@ -406,9 +406,11 @@ random_thumbnail: https://cdn.jsdelivr.net/gh/photup/hexo-theme-type-random_pics
 <!-- highlightjs -->
 
 
-<script src="/kyuu-gallery/js/highlight.min.js" async></script>
+<script src="/kyuu-gallery/js/highlight.min.js"></script>
 
-<script>window.addEventListener('load', () => hljs.initHighlighting());</script>
+<script>window.addEventListener('load', () => {
+  hljs.highlightAll(); // initialize highlighting
+});</script>
 <script>
   $("pre.code").each(function() {
     $(this).html("<ol><li>" + $(this).html().replace(/\n/g, "\n</li><li>") + "\n</li></ol>");
