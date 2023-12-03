@@ -22,14 +22,14 @@
   <meta name="author" content="kyuu">
   
   <!--Open Graph Title-->
-  <meta property="og:title" content="Kyuu Gallery" />
+  <meta property="og:title" content="编辑器" />
   <!--Open Graph Description-->
   <meta property="og:description" content="拿起相机，认真思考" />
   <!--Open Graph Site Name-->
   <meta property="og:site_name" content="Kyuu Gallery" />
   <!--Type page-->
   
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="article" />
   
   <!--Page Cover-->
   
@@ -38,7 +38,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- Title -->
   
-  <title>归档：2023 - Kyuu Gallery</title>
+  <title>编辑器 - Kyuu Gallery</title>
   <!-- 添加到主屏后的标题（iOS 6 新增） -->
   <meta name="apple-mobile-web-app-title" content="Kyuu Gallery">
   <!-- 是否启用 WebApp 全屏模式 -->
@@ -245,60 +245,43 @@
   }
 </style>
   <!-- Main Content -->
-  
-
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
+<script
+    src="https://scaleflex.cloudimg.io/v7/plugins/filerobot-image-editor/latest/filerobot-image-editor.min.js?func=proxy"></script>
 <section class="pjax-area">
-  <div class="content-area p-4 container max-w-[1280px]">
-    <div class="index-achieve-title title">2023</div>
-    <div class="text-2xl leading-10 py-2 col-span-1 md:col-span-3 text-tblack dark:text-white">分类</div>
-    <section class="itp-article-categories" style="list-style-type: none;">
-      <div class="itp-m3-chip-color-list">
-        
-      </div>
-    </section>
-    <div class="text-2xl leading-10 py-2 col-span-1 md:col-span-3 text-tblack dark:text-white">标签</div>
-    <section class="itp-article-categories" style="list-style-type: none;">
-      <div class="itp-m3-chip-normal-list">
-        
-      </div>
-    </section>
-    <!-- learn from https://hughsite.com/post/hexo-modify-theme.html -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-  
-  
-  
-  
-  <p class="text-2xl leading-10 py-2 col-span-1 md:col-span-2 lg:col-span-3 gap-1 text-tblack dark:text-white">2023</p>
-  
-  
-  <div class="h-auto px-3 py-1 hover:bg-gray-200 dark:hover:bg-gray-800 rounded transition-all">
-    <a href="/kyuu-gallery/2023/undefined/" class="flex items-center">
-      <div class="px-1">
-        <div class="post-title text-tblack dark:text-white">照片集</div>
-        <span class="text-sm leading-4 text-gray-400">2023-12-03</span>
-        
-      </div>
-    </a>
-  </div>
-  
-  
-</div>
-<style>
-  .post-title {
-    display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-  }
-  .post-icon {
-    font-size: 1.2em;
-    color: #9DA3AE;
-  }
-</style>
-  </div>
+    <div id="image-editor" style="height: 100vh; width: 100%;"></div>
+    <script>
+        const container = document.getElementById("image-editor");
+        const { TABS, TOOLS } = FilerobotImageEditor;
+        const file = getParam('file');
+        const config = {
+            source: file,
+            defaultTabId: TABS.FILTERS,
+        };
+        console.log(TABS.FILTERS)
+        const ImageEditor = new window.FilerobotImageEditor(container, config);
+        ImageEditor.render({
+            // additional config provided while rendering
+            observePluginContainerSize: true,
+            onSave: (imageInfo, designState) => {
+                const tmpLink = document.createElement("a");
+                tmpLink.download = imageInfo.fullName;
+                tmpLink.href = imageInfo.imageBase64;
+                tmpLink.style = "position: absolute; z-index: -111; visibility: none;";
+                document.body.appendChild(tmpLink);
+                tmpLink.click();
+                document.body.removeChild(tmpLink);
+            }
+        });
+    </script>
+    <style>
+        @media (min-width: 769px) {
+            #image-editor {
+                padding-top: 58px;
+            }
+        }
+    </style>
 </section>
-<!--learn from https://github.com/fluid-dev/hexo-theme-fluid/blob/master/layout/archive.ejs-->
   <!-- Footer -->
   <!-- Footer -->
 <footer class="itp-footer text-center">
