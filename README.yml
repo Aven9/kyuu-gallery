@@ -11,3 +11,10 @@ FujiWeek:
   style: fullscreen
   cover: FujiWeek/DSCF7846.webp
   location: [31.226102247744876, 121.45152274268712]
+
+StarRail:
+  url: HonkaiStarRail
+  date: 2023-12-10
+  style: fullscreen
+  cover: HonkaiStarRail/DSCF8247.webp
+  location: [31.218601181909747, 121.42843556032742]
