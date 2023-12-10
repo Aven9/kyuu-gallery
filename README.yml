@@ -1,9 +1,9 @@
-共青森林公园:
-  url: GongQingForestPark
-  date: 2023-10-21
+StarRail:
+  url: HonkaiStarRail
+  date: 2023-12-10
   style: fullscreen
-  cover: GongQingForestPark/DSCF7717.webp
-  location: [31.32007942704261, 121.55097223340304]
+  cover: HonkaiStarRail/DSCF8247.webp
+  location: [31.218601181909747, 121.42843556032742]
 
 FujiWeek:
   url: FujiWeek
@@ -12,9 +12,10 @@ FujiWeek:
   cover: FujiWeek/DSCF7846.webp
   location: [31.226102247744876, 121.45152274268712]
 
-StarRail:
-  url: HonkaiStarRail
-  date: 2023-12-10
+共青森林公园:
+  url: GongQingForestPark
+  date: 2023-10-21
   style: fullscreen
-  cover: HonkaiStarRail/DSCF8247.webp
-  location: [31.218601181909747, 121.42843556032742]
+  cover: GongQingForestPark/DSCF7717.webp
+  location: [31.32007942704261, 121.55097223340304]
+
