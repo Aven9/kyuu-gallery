@@ -263,7 +263,11 @@
       locateFile: file => `/kyuu-gallery/js/sql-wasm.wasm`
     });
     const q = `
-SELECT tag.name FROM tag;
+SELECT Tag.name
+FROM Tag
+INNER JOIN Photo ON Tag.id = Photo.tag_id
+GROUP BY Tag.id
+HAVING COUNT(Photo.id) > 0;
     `
     const sqlite = await fetch('sqlite.db');
     const sqlite_buf = await sqlite.arrayBuffer();
@@ -282,7 +286,7 @@ WHERE tag.name = "` + tag + "\"";
       var res = document.getElementById("result");
       res.innerHTML = "";
       for (const item of result) {
-        for(const column of item.values) {
+        for (const column of item.values) {
           for (const imgpath of column) {
             const ele = document.createElement("a");
             // ele.href = "/kyuu-gallery/tags.html"
@@ -318,7 +322,7 @@ WHERE tag.name = "` + tag + "\"";
 
     .container {
       width: 100%;
-    max-width: 90%;
+      max-width: 90%;
     }
 
     .gpro-tile {
