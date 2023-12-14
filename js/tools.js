@@ -224,3 +224,10 @@ function command(q, db) {
   }
   return false;
 }
+
+function addBackUp(ele, url, name) {
+  ele.onerror = function() {
+    ele.onerror = null;
+    ele.src = url + name;
+  }
+}
