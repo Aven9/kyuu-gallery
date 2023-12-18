@@ -1,7 +1,7 @@
 title: Kyuu Gallery
 subtitle: Life is a moment.
 description: 拿起相机，认真思考
-cover: 'https://github.com/lfkdsk/picx-images-hosting/raw/master/20230817/IMG_7586.4e91my1ve140.17iz0sa56gik.webp'
+cover: 'https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@master/HonkaiStarRail/DSCF8247.webp'
 author: kyuu
 
 footer_logo: 
@@ -29,7 +29,19 @@ nav:
     icon: inbox
   地图:
     link: /kyuu-gallery/location
-    icon: aiming
+    icon: local-two
+  随机:
+    link: /gallery/random
+    icon: pic
+  查询:
+    link: /gallery/query
+    icon: history-query
+  状态监控:
+    link: /gallery/status
+    icon: list-view
     
 thumbnail_url: https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/
 base_url: https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@master
+
+backup_base_url: https://raw.githubusercontent.com/Aven9/kyuu-gallery/master
+backup_thumbnail_url: https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail
