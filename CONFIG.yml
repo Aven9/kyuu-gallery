@@ -31,13 +31,13 @@ nav:
     link: /kyuu-gallery/location
     icon: local-two
   随机:
-    link: /gallery/random
+    link: /kyuu-gallery/random
     icon: pic
   查询:
-    link: /gallery/query
+    link: /kyuu-gallery/query
     icon: history-query
   状态监控:
-    link: /gallery/status
+    link: /kyuu-gallery/status
     icon: list-view
     
 thumbnail_url: https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/
