@@ -33,7 +33,7 @@
   
   <!--Page Cover-->
   
-  <meta property="og:image" content="https://github.com/lfkdsk/picx-images-hosting/raw/master/20230817/IMG_7586.4e91my1ve140.17iz0sa56gik.webp" />
+  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@master/HonkaiStarRail/DSCF8247.webp" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- Title -->
@@ -211,13 +211,31 @@
   
   <a class="itp-float-bar-item rounded" href="/kyuu-gallery/location" title="地图">
     
-    <iconpark-icon class="navicon" name="aiming"></iconpark-icon>
+    <iconpark-icon class="navicon" name="local-two"></iconpark-icon>
     
   </a>
   
   <a class="itp-float-bar-item rounded" href="https://aven9.github.io" title="归档">
     
     <iconpark-icon class="navicon" name="inbox"></iconpark-icon>
+    
+  </a>
+  
+  <a class="itp-float-bar-item rounded" href="/gallery/query" title="查询">
+    
+    <iconpark-icon class="navicon" name="history-query"></iconpark-icon>
+    
+  </a>
+  
+  <a class="itp-float-bar-item rounded" href="/gallery/status" title="状态监控">
+    
+    <iconpark-icon class="navicon" name="list-view"></iconpark-icon>
+    
+  </a>
+  
+  <a class="itp-float-bar-item rounded" href="/gallery/random" title="随机">
+    
+    <iconpark-icon class="navicon" name="pic"></iconpark-icon>
     
   </a>
   
@@ -271,7 +289,7 @@
         const sqlite_buf = await sqlite.arrayBuffer();
         const db = new SQL.Database(new Uint8Array(sqlite_buf));
         const start = performance.now();
-        const params = [db, 'https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/', ''];
+        const params = [db, 'https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/', 'https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail'];
         queryTable(
             ['Image Maker', 'Location', 'Group by focal length and order by count.'],
             `
@@ -285,7 +303,7 @@ SELECT country, COUNT(*) as count
 FROM location 
 GROUP BY country;
 
-SELECT EXIFData.focal_length as F_Number, COUNT(*) AS Count
+SELECT EXIFData.focal_length as FocalLength, COUNT(*) AS Count
 FROM Photo
 LEFT OUTER JOIN EXIFData ON Photo.exif_data_id = EXIFData.id
 WHERE Photo.exif_data_id IS NOT NULL OR Photo.exif <> ''
