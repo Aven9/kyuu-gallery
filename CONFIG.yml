@@ -40,7 +40,8 @@ nav:
     link: /kyuu-gallery/status
     icon: list-view
     
-thumbnail_url: https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/
+# thumbnail_url: https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/
+thumbnail_url: https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail
 base_url: https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@master
 
 backup_base_url: https://raw.githubusercontent.com/Aven9/kyuu-gallery/master
