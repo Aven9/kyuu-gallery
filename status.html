@@ -289,7 +289,7 @@
         const sqlite_buf = await sqlite.arrayBuffer();
         const db = new SQL.Database(new Uint8Array(sqlite_buf));
         const start = performance.now();
-        const params = [db, 'https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail', 'https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail'];
+        const params = [db, 'https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail/', 'https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail'];
         queryTable(
             ['Image Maker'],
             `

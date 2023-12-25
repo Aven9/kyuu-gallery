@@ -310,7 +310,7 @@ WHERE tag.name = "` + tag + "\"";
             // ele.href = "/kyuu-gallery/tags.html"
             const d = document.createElement("div");
             d.classList = "gpro-tile lazy"
-            d.setAttribute("style", 'background-image: url("https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail' + imgpath.substr(0, imgpath.lastIndexOf(".")) + '.webp")')
+            d.setAttribute("style", 'background-image: url("https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail/' + imgpath.substr(0, imgpath.lastIndexOf(".")) + '.webp")')
             ele.appendChild(d);
             res.appendChild(ele);
           }
