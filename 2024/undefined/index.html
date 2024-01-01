@@ -22,14 +22,14 @@
   <meta name="author" content="kyuu">
   
   <!--Open Graph Title-->
-  <meta property="og:title" content="Kyuu Gallery" />
+  <meta property="og:title" content="照片集" />
   <!--Open Graph Description-->
   <meta property="og:description" content="拿起相机，认真思考" />
   <!--Open Graph Site Name-->
   <meta property="og:site_name" content="Kyuu Gallery" />
   <!--Type page-->
   
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="article" />
   
   <!--Page Cover-->
   
@@ -38,7 +38,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- Title -->
   
-  <title>归档：2023/12 - Kyuu Gallery</title>
+  <title>照片集 - Kyuu Gallery</title>
   <!-- 添加到主屏后的标题（iOS 6 新增） -->
   <meta name="apple-mobile-web-app-title" content="Kyuu Gallery">
   <!-- 是否启用 WebApp 全屏模式 -->
@@ -157,6 +157,21 @@
   
   
   
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "照片集",
+      "image": "https://imgur.lzmun.com/picgo/after2022/6DD1FBC3-AD8A-4340-842D-6ACF531F8291_1_105_c.jpeg_itp",
+      "datePublished": "Mon Jan 01 2024 12:13:04 GMT+0000",
+      "author": [{
+        "@type": "Person",
+        "name": "kyuu",
+        "url": "https://aven9.github.io/kyuu-gallery"
+      }]
+    }
+  </script>
+  
   
   
   <!--<script src="https://cdn.tailwindcss.com"></script>
@@ -263,65 +278,138 @@
   }
 </style>
   <!-- Main Content -->
-  
+  <section class="pjax-area">
+  <div class="content-area album-area">
+    
+    <div class="container gpro-slogan title">
+      The moments when I pressed the shutter, the moments are forever.
+    </div>
+    
+    <div class="container gpro-container grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      
+      
+      <a href="Yuyuan">
+        <div class="gpro-tile lazy" data-src="Yuyuan/DSCF8697.webp">
+          <div class="gpro-tile-descr">Yuyuan</div>
+        </div>
+      </a>
+      
+      <a href="HonkaiStarRail">
+        <div class="gpro-tile lazy" data-src="HonkaiStarRail/DSCF8247.webp">
+          <div class="gpro-tile-descr">StarRail</div>
+        </div>
+      </a>
+      
+      <a href="FujiWeek">
+        <div class="gpro-tile lazy" data-src="FujiWeek/DSCF7846.webp">
+          <div class="gpro-tile-descr">FujiWeek</div>
+        </div>
+      </a>
+      
+      <a href="GongQingForestPark">
+        <div class="gpro-tile lazy" data-src="GongQingForestPark/DSCF7717.webp">
+          <div class="gpro-tile-descr">共青森林公园</div>
+        </div>
+      </a>
+      
+      <a href="XingChenJiXing">
+        <div class="gpro-tile lazy" data-src="XingChenJiXing/DSCF7490.webp">
+          <div class="gpro-tile-descr">星辰纪行</div>
+        </div>
+      </a>
+      
+    </div>
+  </div>
+  <script>
+    $(function() {
+      $("div.lazy").lazyload();
+    });
+  </script>
+  <style>
+    body {
+      background-color: #fff;
+    }
 
-<section class="pjax-area">
-  <div class="content-area p-4 container max-w-[1280px]">
-    <div class="index-achieve-title title">2023/12</div>
-    <div class="text-2xl leading-10 py-2 col-span-1 md:col-span-3 text-tblack dark:text-white">分类</div>
-    <section class="itp-article-categories" style="list-style-type: none;">
-      <div class="itp-m3-chip-color-list">
-        
-      </div>
-    </section>
-    <div class="text-2xl leading-10 py-2 col-span-1 md:col-span-3 text-tblack dark:text-white">标签</div>
-    <section class="itp-article-categories" style="list-style-type: none;">
-      <div class="itp-m3-chip-normal-list">
-        
-      </div>
-    </section>
-    <!-- learn from https://hughsite.com/post/hexo-modify-theme.html -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-  
-  
-  
-  
-  <p class="text-2xl leading-10 py-2 col-span-1 md:col-span-2 lg:col-span-3 gap-1 text-tblack dark:text-white">2023</p>
-  
-  
-  <div class="h-auto px-3 py-1 hover:bg-gray-200 dark:hover:bg-gray-800 rounded transition-all">
-    <a href="/kyuu-gallery/2023/undefined/" class="flex items-center">
-      <div class="px-1">
-        <div class="post-title text-tblack dark:text-white">照片集</div>
-        <span class="text-sm leading-4 text-gray-400">2023-12-31</span>
-        
-      </div>
-    </a>
-  </div>
-  
-  
-</div>
-<style>
-  .post-title {
-    display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-  }
-  .post-icon {
-    font-size: 1.2em;
-    color: #9DA3AE;
-  }
-</style>
-  </div>
+    .album-area {
+      margin-top: 120px;
+      padding-left: 16px;
+      padding-right: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .gpro-slogan {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 700;
+      color: #3D4350;
+    }
+
+    .gpro-container {
+      margin-top: 120px;
+      gap: 8px;
+    }
+
+    .gpro-tile {
+      aspect-ratio: 3 / 2;
+      background-position: center;
+      background-size: cover;
+      border-radius: 5px;
+      transition: all .15s ease-in-out;
+      min-height: 211px;
+    }
+
+    .gpro-tile:hover {
+      box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
+      transform: scale(1.02);
+      transition: all .15s ease-in-out;
+    }
+
+    .gpro-tile-descr {
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(#00000000 50%, #00000055 100%);
+      color: #fff;
+      font-size: 14px;
+      border-radius: 5px;
+      opacity: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      text-overflow: clip;
+      transition: all .15s ease-in-out;
+      padding-bottom: .85em;
+    }
+
+    .gpro-tile-descr:hover {
+      opacity: 1;
+      transition: all .15s ease-in-out;
+    }
+
+    @media (max-width: 768px) {
+      .gpro-slogan {
+        font-size: 28px;
+      }
+
+      .content-area {
+        margin-top: 80px;
+      }
+
+      .gpro-container {
+        margin-top: 60px;
+      }
+    }
+  </style>
 </section>
-<!--learn from https://github.com/fluid-dev/hexo-theme-fluid/blob/master/layout/archive.ejs-->
   <!-- Footer -->
   <!-- Footer -->
 <footer class="itp-footer text-center">
   <section class="footer-info">
-    Kyuu Gallery &copy; 2017 - 2023
+    Kyuu Gallery &copy; 2017 - 2024
     
     
     
