@@ -115,7 +115,7 @@ function wrapperData(v, author) {
   exifAuthor.text("By " + author);
 }
 
-function heatmap(db) {
+function heatmap(db, root) {
   var chartDom = document.getElementById("chart-wrapper");
   var option;
   var result = db.exec(
@@ -133,7 +133,8 @@ SELECT
 SUBSTR(exifdate, 1, 4) AS year, 
 GROUP_CONCAT(exifdate || ':' || cnt) AS dates_and_counts
 FROM daily_counts
-GROUP BY SUBSTR(exifdate, 1, 4);
+GROUP BY SUBSTR(exifdate, 1, 4)
+ORDER BY SUBSTR(exifdate, 1, 4) DESC;
 `
   );
   for (const item of result[0].values) {
@@ -210,6 +211,13 @@ GROUP BY SUBSTR(exifdate, 1, 4);
         data: arr,
       },
     };
+    myChart.on('click', function (params) {
+      if (params === undefined || params.value.length !== 2) {
+        return;
+      }
+      window.open(root + 'grid-all?filter='+ params.value[0]);
+    });
+  
 
     option && myChart.setOption(option);
   }

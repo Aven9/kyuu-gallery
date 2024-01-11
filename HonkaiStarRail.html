@@ -676,7 +676,7 @@
           });
         });   
         editor.click(function () {
-          window.open('/kyuu-gallery/editor?file=' + imgLink);
+          window.open('/kyuu-gallery/editor?file=' + encodeURIComponent(imgLink));
         })     
         // key
         window.onkeydown = function album_hotkey() {
@@ -710,7 +710,7 @@
           copyToClipboard('https://aven9.github.io/kyuu-gallery/' + "photo?name=" + imageBox.getAttribute('share'));
         });
         $("#grid").on('click', function() {
-          window.open('/kyuu-gallery/grid?name=HonkaiStarRail');
+          window.open('/kyuu-gallery/grid?name=' + encodeURIComponent('HonkaiStarRail'));
         });
       </script>
       <style>
