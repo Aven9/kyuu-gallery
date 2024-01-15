@@ -221,6 +221,12 @@
     
   </a>
   
+  <a class="itp-float-bar-item rounded" href="/kyuu-gallery/grid-all" title="时间线">
+    
+    <iconpark-icon class="navicon" name="grid-nine"></iconpark-icon>
+    
+  </a>
+  
   <a class="itp-float-bar-item rounded" href="/kyuu-gallery/query" title="查询">
     
     <iconpark-icon class="navicon" name="history-query"></iconpark-icon>
@@ -289,7 +295,7 @@
         const sqlite_buf = await sqlite.arrayBuffer();
         const db = new SQL.Database(new Uint8Array(sqlite_buf));
         const start = performance.now();
-        const params = [db, 'https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail/', 'https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail'];
+        const params = [db, 'https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/', 'https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail'];
         queryTable(
             ['Total Count'],
             `

@@ -221,6 +221,12 @@
     
   </a>
   
+  <a class="itp-float-bar-item rounded" href="/kyuu-gallery/grid-all" title="时间线">
+    
+    <iconpark-icon class="navicon" name="grid-nine"></iconpark-icon>
+    
+  </a>
+  
   <a class="itp-float-bar-item rounded" href="/kyuu-gallery/query" title="查询">
     
     <iconpark-icon class="navicon" name="history-query"></iconpark-icon>
@@ -292,7 +298,7 @@ WHERE album.dir = '` + name + "'"
     for (const v of result) {
       var d = document.createElement('div');
       d.classList = 'gpro-tile lazy';
-      d.setAttribute('data-src', 'https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail/' + v[0].replace(/\.\w+$/, '.webp'));
+      d.setAttribute('data-src', 'https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/' + v[0].replace(/\.\w+$/, '.webp'));
       var a = document.createElement('a');
       a.setAttribute('data-fancybox', 'gallery');
       a.href = 'https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@master/' + v[0];

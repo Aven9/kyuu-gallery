@@ -228,6 +228,12 @@
     
   </a>
   
+  <a class="itp-float-bar-item rounded" href="/kyuu-gallery/grid-all" title="时间线">
+    
+    <iconpark-icon class="navicon" name="grid-nine"></iconpark-icon>
+    
+  </a>
+  
   <a class="itp-float-bar-item rounded" href="/kyuu-gallery/query" title="查询">
     
     <iconpark-icon class="navicon" name="history-query"></iconpark-icon>
@@ -439,7 +445,7 @@
           continue
         }
       }
-      var cover = 'https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail/' + file.substr(0, file.lastIndexOf(".")) + ".webp"
+      var cover = 'https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/' + file.substr(0, file.lastIndexOf(".")) + ".webp"
       if (v.hasOwnProperty('location') && v.location.length !== 0) {
         // add marker
         var marker = L.marker(v.location).addTo(map);
@@ -458,7 +464,7 @@
         slogan.textContent = key;
       }
       var file = v.cover;
-      var cover = 'https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail/' + file.substr(0, file.lastIndexOf(".")) + ".webp"
+      var cover = 'https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/' + file.substr(0, file.lastIndexOf(".")) + ".webp"
       if (v.hasOwnProperty('location') && v.location.length !== 0) {
         // set center view.
         if (first === null) {
