@@ -300,7 +300,7 @@
         const sqlite_buf = await sqlite.arrayBuffer();
         const db = new SQL.Database(new Uint8Array(sqlite_buf));
         const start = performance.now();
-        const params = [db, 'https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/', 'https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail'];
+        const params = [null, db, 'https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail/', 'https://raw.githubusercontent.com/Aven9/kyuu-gallery/thumbnail'];
         queryTable(
             ['Total Count'],
             `
@@ -317,7 +317,15 @@ LEFT OUTER JOIN EXIFData ON Photo.exif_data_id = EXIFData.id
 GROUP BY maker
 ORDER BY count DESC;
 `,
-            ...params,
+            ...[function resolve(td, cell, index) {
+                if (index !== 0) {
+                    return document.createTextNode(cell);
+                }
+                const a = document.createElement('a');
+                a.text = cell;
+                a.setAttribute('href', 'grid-all?maker=' + cell);
+                return a;
+            }, ...params.slice(1)],
         );
         queryTable(
             ['Image Lens Maker'],
@@ -328,7 +336,15 @@ group by lens_model
 order by lens_count DESC
 limit 10;
 `,
-            ...params,
+        ...[function resolve(td, cell, index) {
+                if (index !== 0) {
+                    return document.createTextNode(cell);
+                }
+                const a = document.createElement('a');
+                a.text = cell;
+                a.setAttribute('href', 'grid-all?lens_model=' + cell);
+                return a;
+            }, ...params.slice(1)],
         );        
         queryTable(
             ['Location'],
@@ -338,7 +354,15 @@ FROM location
 GROUP BY country
 ORDER BY COUNT(*) DESC;
 `,
-        ...params,       
+        ...[function resolve(td, cell, index) {
+                if (index !== 0) {
+                    return document.createTextNode(cell);
+                }
+                const a = document.createElement('a');
+                a.text = cell;
+                a.setAttribute('href', 'grid-all?country=' + cell);
+                return a;
+            }, ...params.slice(1)],
         );
         queryTable(
             ['Group by focal length and order by count.'],
@@ -351,7 +375,15 @@ GROUP BY EXIFData.focal_length
 ORDER BY COUNT(*) DESC
 LIMIT 5;
 `,
-        ...params,
+            ...[function resolve(td, cell, index) {
+                if (index !== 0) {
+                    return document.createTextNode(cell);
+                }
+                const a = document.createElement('a');
+                a.text = cell;
+                a.setAttribute('href', 'grid-all?focal_length=' + cell);
+                return a;
+            }, ...params.slice(1)],        
         );
         queryTable(
             ['Group by exposure time and order by count.'],
@@ -365,7 +397,12 @@ ORDER BY COUNT(*) DESC
 LIMIT 5;
 `,
         ...params,
-        );        
+        );      
+        queryTable(
+            ['History Today\'s Pictures.'],
+        getTodayPhotos(),
+        ...params,        
+        );                  
         // add heatmap into wrapper.
         heatmap(db, '/kyuu-gallery/');
         const duration = performance.now() - start;
