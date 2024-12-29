@@ -103,6 +103,11 @@ function wrapperData(v, author) {
       exifLogo.addClass("sony-logo");
       break;
     }
+    case "DJI": {
+      exifLogo.attr("src", "img/dajiang.png");
+      exifLogo.addClass("sony-logo");
+      break;
+    }
     default: {
       break;
     }
@@ -121,9 +126,9 @@ function wrapperData(v, author) {
       " " +
       v.exif_data["EXIF ExposureTime"]
   );
-  exifLens.text(v.exif_data["EXIF LensModel"]);
-  exifMaker.text(v.exif_data["Image Model"]);
-  exifDate.text(v.exif_data["EXIF DateTimeOriginal"]);
+  exifLens.text(v.exif_data["EXIF LensModel"] ?? "");
+  exifMaker.text(v.exif_data["Image Model"] ?? "");
+  exifDate.text(v.exif_data["EXIF DateTimeOriginal"] ?? "");
   exifAuthor.text("By " + author);
 }
 
