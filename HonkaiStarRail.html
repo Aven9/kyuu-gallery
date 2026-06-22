@@ -403,7 +403,7 @@
       <div class="fullscreen-pic gap-2 wrapper">
         <div id="all-pic" class="pic-area">
           <div id="pic-g" class="pic-item" />
-          <img id="imgbox" class="pic-box" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8241.webp" />
+          <img id="imgbox" class="pic-box nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8241.webp" />
         </div>
         <div id="exif-wrapper" class="pic-wrapper">
     <div class="exif-left" style="display: flex; flex-direction: column; justify-content: center;">
@@ -864,6 +864,12 @@
   </div>
   
       </div>
+      <div class="album-viewer" id="album-viewer" hidden aria-hidden="true">
+        <button type="button" class="av-close" aria-label="Close">&times;</button>
+        <div class="av-stage" id="av-stage">
+          <img id="av-img" class="av-img" alt="" />
+        </div>
+      </div>
       <script>
         var imageBox = document.getElementById("imgbox");
         var descBox = $("#descbox");
@@ -924,9 +930,11 @@
           var picg = document.getElementById('pic-g');
           attachLivePhoto(picg, false, '');
           attachLivePhoto(picg, video !== '', video);
-          var fancyBoxImage = document.getElementsByClassName("fancybox__image")[0];
-          if (fancyBoxImage !== undefined) {
-            fancyBoxImage.src = imgLink;
+          // keep the HDR fullscreen viewer in sync when navigating (arrow keys)
+          var albumViewer = document.getElementById('album-viewer');
+          if (albumViewer && !albumViewer.hidden) {
+            var avImgEl = document.getElementById('av-img');
+            if (avImgEl) avImgEl.src = imgLink;
           }
           target.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" })
           descBox.text(imgno.desc);
@@ -1017,6 +1025,42 @@
         $("#grid").on('click', function() {
           window.open('/kyuu-gallery/grid-all?album=' + encodeURIComponent('HonkaiStarRail'));
         });
+
+        // HDR-safe fullscreen viewer for the main album image.
+        // Fancybox applies a transform (pan/zoom) and opacity/scale open animations
+        // to its lightbox image, which forces the browser to composite it through an
+        // intermediate buffer and tone-map HDR (gain-map) photos down to SDR.
+        // This viewer shows a plain <img> with no transform/filter/opacity, so the
+        // browser keeps the photo's HDR headroom — matching the inline display.
+        (function () {
+          var viewer = document.getElementById('album-viewer');
+          var avImg = document.getElementById('av-img');
+          var avStage = document.getElementById('av-stage');
+          if (!viewer || !avImg) return;
+          function openViewer() {
+            avImg.src = imgLink;
+            viewer.hidden = false;
+            viewer.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+          }
+          function closeViewer() {
+            viewer.hidden = true;
+            viewer.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            avImg.removeAttribute('src');
+          }
+          imageBox.style.cursor = 'zoom-in';
+          imageBox.addEventListener('click', openViewer);
+          viewer.addEventListener('click', function (e) {
+            if (e.target === viewer || e.target === avStage) closeViewer();
+          });
+          var closeBtn = viewer.querySelector('.av-close');
+          if (closeBtn) closeBtn.addEventListener('click', closeViewer);
+          document.addEventListener('keydown', function (e) {
+            if (viewer.hidden) return;
+            if (e.key === 'Escape') closeViewer();
+          });
+        })();
       </script>
       <style>
         body {
@@ -1220,6 +1264,55 @@
           .album-item {
             border: 0.8px solid white;
           }
+        }
+
+        /* HDR-safe fullscreen viewer.
+           The <img> intentionally carries no transform / filter / opacity /
+           backdrop-filter (and neither do its local ancestors), so the browser
+           keeps the photo's HDR headroom instead of tone-mapping it to SDR. */
+        .album-viewer {
+          position: fixed;
+          inset: 0;
+          z-index: 10000;
+          background: #0b0b0c;
+        }
+
+        .album-viewer[hidden] {
+          display: none;
+        }
+
+        .av-stage {
+          position: absolute;
+          inset: 0;
+          display: grid;
+          place-items: center;
+          padding: 56px 16px 24px;
+          cursor: zoom-out;
+        }
+
+        .av-img {
+          max-width: min(94vw, 1600px);
+          max-height: calc(100vh - 80px);
+          object-fit: contain;
+          cursor: default;
+        }
+
+        .av-close {
+          position: absolute;
+          top: 14px;
+          right: 16px;
+          z-index: 2;
+          width: 40px;
+          height: 40px;
+          display: grid;
+          place-items: center;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          background: rgba(0, 0, 0, 0.4);
+          color: #fff;
+          border-radius: 10px;
+          font-size: 22px;
+          line-height: 1;
+          cursor: pointer;
         }
 
       </style>
