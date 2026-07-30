@@ -3,7 +3,8 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+
+<html lang="zh-CN" data-skin="modern">
 <!-- Head tag -->
 <head>
   <meta charset="utf-8">
@@ -105,6 +106,10 @@
   }
 </style>
 
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/tokens.css">
+
   <!-- Custom CSS/Sass -->
   
 <link rel="stylesheet" href="/kyuu-gallery/css/style.css">
@@ -112,21 +117,30 @@
   
 <link rel="stylesheet" href="/kyuu-gallery/css/fancybox.css">
 
-  <!--样式切换-->
-  
   
 <link rel="stylesheet" href="/kyuu-gallery/css/material3.css">
 
   
   
   
-  
-  
-  <!--highlight.js CSS-->
-  
-  
-<link rel="stylesheet" href="/kyuu-gallery/css/highlight/github.css">
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/classic.css">
 
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/darkroom.css">
+
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/gallery.css">
+
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/editorial.css">
+
+  
+  
+  
+  
   
   
 
@@ -387,30 +401,24 @@
 
 
 
-<style>
-  .navicon {
-    font-size: 18px;
-    padding-top: 18px;
-    color: var(--main-black);
-  }
-</style>
+
   <!-- Main Content -->
-  <script src="js/html2canvas.min.js" defer></script>
-<script src="js/mini-live-photo.js"></script>
+  <script src="js/mini-live-photo.js"></script>
 <section class="pjax-area">
   <div class="content-area post-album fullscreen-content-area">
     <div class="grid grid-cols-3">
       <div class="fullscreen-pic gap-2 wrapper">
         <div id="all-pic" class="pic-area">
           <div id="pic-g" class="pic-item" />
-          <img id="imgbox" class="pic-box nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7475.webp" />
+          <img id="imgbox" class="pic-box nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7475.webp" alt="" decoding="async" fetchpriority="high" />
         </div>
         <div id="exif-wrapper" class="pic-wrapper">
     <div class="exif-left" style="display: flex; flex-direction: column; justify-content: center;">
         <div id="exif-param"></div>
         <div id="exif-date"></div>
     </div>
-    <div class="exif-right" style="display: flex; flex-direction: column; justify-self: center;">
+    
+    <div class="exif-right" style="display: flex; flex-direction: column; justify-content: center;">
         <div style="display: flex; flex-direction:row; justify-content: start;">
             <div style="display: flex; justify-content: center; flex-direction: column;">
                 <img id="exif-maker-logo" class="nofancy" style="object-fit: cover;"></img>
@@ -464,9 +472,26 @@
     }
 
     #exif-lens {
+        /* 镜头型号可能很长，需要「超出截断 + 省略号」。原来直接写 overflow: hidden，
+           但它连纵向一起裁：实测这行字的墨迹会伸出行盒约 1.8px（字体 ascent +
+           descent 之和大于 line-height），底部因此被削。屏幕上 12.8px 字号看不出，
+           下载图放大 4.6 倍后很明显——看着像和下一行叠在一起。
+
+           试过几条路都不行：
+           - overflow-x: hidden + overflow-y: visible ——按 CSS 规范，一个方向非
+             visible 时另一个的 visible 会被算成 auto，照样裁；
+           - overflow-clip-margin ——html2canvas 不支持，实测无效；
+           - 单纯加大 line-height ——盒子变高的同时文字也整体下移，余量只从
+             0.3px 涨到 0.6px，白付出行距。
+
+           成立的做法：padding 在盒子内侧，能把裁剪边往下推；再用等量负 margin
+           抵消掉它对布局的影响，卡片高度不变。实测墨迹底部回到 622.5px，与
+           overflow: visible 的基准完全一致，即一点没被削。 */
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+        padding-bottom: 4px;
+        margin-bottom: -4px;
     }
 
     .pic-wrapper {
@@ -612,14 +637,15 @@
           
           
           
-          <a class="album-item lazy" id="0"
+          <a class="album-item" id="0"
             name="DSCF7475" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7475.webp"
             desc=" - · - "
             share="XingChenJiXing/DSCF7475.webp"
             video=""
             extra='{"desc":null,"dir":"XingChenJiXing","exif":"FUJIFILM X-S20 1/150s F2.8 ISO 2500 50mm XF50-140mmF2.8 R LM OIS WR ","exif_data":{"EXIF DateTimeOriginal":"2023:12:24 14:18:14","EXIF ExposureTime":"1/150s","EXIF FNumber":"F2.8","EXIF FocalLength":"50mm","EXIF ISOSpeedRatings":"ISO 2500","EXIF LensModel":"XF50-140mmF2.8 R LM OIS WR","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[],"name":"DSCF7475","path":"XingChenJiXing/DSCF7475.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7475.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7475.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7475.webp"
-            aria-label="the photo 0"></a>
+            aria-label="the photo 0"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7475.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -632,14 +658,15 @@
           
           
           
-          <a class="album-item lazy" id="1"
+          <a class="album-item" id="1"
             name="DSCF7485" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7485.webp"
             desc=" - · - "
             share="XingChenJiXing/DSCF7485.webp"
             video=""
             extra='{"desc":null,"dir":"XingChenJiXing","exif":"FUJIFILM X-S20 1/300s F2.8 ISO 8000 50mm XF50-140mmF2.8 R LM OIS WR ","exif_data":{"EXIF DateTimeOriginal":"2023:12:24 14:24:14","EXIF ExposureTime":"1/300s","EXIF FNumber":"F2.8","EXIF FocalLength":"50mm","EXIF ISOSpeedRatings":"ISO 8000","EXIF LensModel":"XF50-140mmF2.8 R LM OIS WR","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[],"name":"DSCF7485","path":"XingChenJiXing/DSCF7485.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7485.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7485.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7485.webp"
-            aria-label="the photo 1"></a>
+            aria-label="the photo 1"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7485.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -652,14 +679,15 @@
           
           
           
-          <a class="album-item lazy" id="2"
+          <a class="album-item" id="2"
             name="DSCF7490" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7490.webp"
             desc=" - · - "
             share="XingChenJiXing/DSCF7490.webp"
             video=""
             extra='{"desc":null,"dir":"XingChenJiXing","exif":"FUJIFILM X-S20 1/150s F2.8 ISO 5000 50mm XF50-140mmF2.8 R LM OIS WR ","exif_data":{"EXIF DateTimeOriginal":"2023:12:24 14:24:19","EXIF ExposureTime":"1/150s","EXIF FNumber":"F2.8","EXIF FocalLength":"50mm","EXIF ISOSpeedRatings":"ISO 5000","EXIF LensModel":"XF50-140mmF2.8 R LM OIS WR","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[],"name":"DSCF7490","path":"XingChenJiXing/DSCF7490.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7490.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7490.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7490.webp"
-            aria-label="the photo 2"></a>
+            aria-label="the photo 2"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7490.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -672,14 +700,15 @@
           
           
           
-          <a class="album-item lazy" id="3"
+          <a class="album-item" id="3"
             name="DSCF7492" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7492.webp"
             desc=" - · - "
             share="XingChenJiXing/DSCF7492.webp"
             video=""
             extra='{"desc":null,"dir":"XingChenJiXing","exif":"FUJIFILM X-S20 1/140s F2.8 ISO 6400 50mm XF50-140mmF2.8 R LM OIS WR ","exif_data":{"EXIF DateTimeOriginal":"2023:12:24 14:29:15","EXIF ExposureTime":"1/140s","EXIF FNumber":"F2.8","EXIF FocalLength":"50mm","EXIF ISOSpeedRatings":"ISO 6400","EXIF LensModel":"XF50-140mmF2.8 R LM OIS WR","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[],"name":"DSCF7492","path":"XingChenJiXing/DSCF7492.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7492.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7492.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7492.webp"
-            aria-label="the photo 3"></a>
+            aria-label="the photo 3"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7492.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -692,14 +721,15 @@
           
           
           
-          <a class="album-item lazy" id="4"
+          <a class="album-item" id="4"
             name="DSCF7495" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7495.webp"
             desc=" - · - "
             share="XingChenJiXing/DSCF7495.webp"
             video=""
             extra='{"desc":null,"dir":"XingChenJiXing","exif":"FUJIFILM X-S20 1/300s F2.8 ISO 6400 50mm XF50-140mmF2.8 R LM OIS WR ","exif_data":{"EXIF DateTimeOriginal":"2023:12:24 14:32:21","EXIF ExposureTime":"1/300s","EXIF FNumber":"F2.8","EXIF FocalLength":"50mm","EXIF ISOSpeedRatings":"ISO 6400","EXIF LensModel":"XF50-140mmF2.8 R LM OIS WR","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[],"name":"DSCF7495","path":"XingChenJiXing/DSCF7495.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7495.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7495.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7495.webp"
-            aria-label="the photo 4"></a>
+            aria-label="the photo 4"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7495.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -712,14 +742,15 @@
           
           
           
-          <a class="album-item lazy" id="5"
+          <a class="album-item" id="5"
             name="DSCF7500" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7500.webp"
             desc=" - · - "
             share="XingChenJiXing/DSCF7500.webp"
             video=""
             extra='{"desc":null,"dir":"XingChenJiXing","exif":"FUJIFILM X-S20 1/150s F2.8 ISO 3200 50mm XF50-140mmF2.8 R LM OIS WR ","exif_data":{"EXIF DateTimeOriginal":"2023:12:24 14:32:29","EXIF ExposureTime":"1/150s","EXIF FNumber":"F2.8","EXIF FocalLength":"50mm","EXIF ISOSpeedRatings":"ISO 3200","EXIF LensModel":"XF50-140mmF2.8 R LM OIS WR","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[],"name":"DSCF7500","path":"XingChenJiXing/DSCF7500.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7500.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7500.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7500.webp"
-            aria-label="the photo 5"></a>
+            aria-label="the photo 5"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7500.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -732,14 +763,15 @@
           
           
           
-          <a class="album-item lazy" id="6"
+          <a class="album-item" id="6"
             name="DSCF7521" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7521.webp"
             desc=" - · - "
             share="XingChenJiXing/DSCF7521.webp"
             video=""
             extra='{"desc":null,"dir":"XingChenJiXing","exif":"FUJIFILM X-S20 1/420s F2.8 ISO 6400 140mm XF50-140mmF2.8 R LM OIS WR ","exif_data":{"EXIF DateTimeOriginal":"2023:12:24 14:48:10","EXIF ExposureTime":"1/420s","EXIF FNumber":"F2.8","EXIF FocalLength":"140mm","EXIF ISOSpeedRatings":"ISO 6400","EXIF LensModel":"XF50-140mmF2.8 R LM OIS WR","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[],"name":"DSCF7521","path":"XingChenJiXing/DSCF7521.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7521.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7521.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7521.webp"
-            aria-label="the photo 6"></a>
+            aria-label="the photo 6"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7521.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -752,14 +784,15 @@
           
           
           
-          <a class="album-item lazy" id="7"
+          <a class="album-item" id="7"
             name="DSCF7530" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7530.webp"
             desc=" - · - "
             share="XingChenJiXing/DSCF7530.webp"
             video=""
             extra='{"desc":null,"dir":"XingChenJiXing","exif":"FUJIFILM X-S20 1/550s F2.8 ISO 12800 129.2mm XF50-140mmF2.8 R LM OIS WR ","exif_data":{"EXIF DateTimeOriginal":"2023:12:24 15:19:07","EXIF ExposureTime":"1/550s","EXIF FNumber":"F2.8","EXIF FocalLength":"129.2mm","EXIF ISOSpeedRatings":"ISO 12800","EXIF LensModel":"XF50-140mmF2.8 R LM OIS WR","Image Make":"FUJIFILM","Image Model":"X-S20"},"location":[],"name":"DSCF7530","path":"XingChenJiXing/DSCF7530.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7530.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/XingChenJiXing/DSCF7530.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7530.webp"
-            aria-label="the photo 7"></a>
+            aria-label="the photo 7"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//XingChenJiXing/DSCF7530.webp" alt=""
+              loading="eager" decoding="async"></a>
           
       </div>
       <div class="text-center text-xs pt-2 hint-text"> </div>
@@ -777,9 +810,6 @@
           </div>
           <div class="album-share album-tool">
             <iconpark-icon name="down-picture"></iconpark-icon><a id="download" href="javascript:void(0)"> Download </a>
-          </div>
-          <div class="album-share album-tool">
-            <iconpark-icon name="save"></iconpark-icon><a id="editor" href="javascript:void(0)"> Editor </a>
           </div>
           <div class="album-share album-tool">
             <iconpark-icon name="grid-nine"></iconpark-icon><a id="grid" href="javascript:void(0)"> Grid </a>
@@ -817,7 +847,6 @@
         var normalWrapper = $("#normal-wrapper");
         var normalData = $("#no-exif-data");
         var name = getParam('name');
-        var editor = $("#editor");
         imgno = 0;
         imgLink = imageBox.src;
         // Monotonic token: guards against a slow earlier high-res load finishing
@@ -933,19 +962,14 @@
         }
 
         $('#download').click(function () {
-          var node = document.getElementById('all-pic');
-          html2canvas(node, {
-            useCORS: true,
-            allowTaint: true,
-            scrollX: 0,
-            scrollY: 0,
-          }).then(function (canvas) {
-            simulateDownloadImageClick(canvas.toDataURL('image/png'),  name + '.png');
+          downloadFramedPhoto({
+            node: document.getElementById('all-pic'),
+            img: imageBox,
+            fullSrc: imgLink,      // 当前选中照片的原图，不是缩略图
+            filename: name,
+            button: this,
           });
         });
-        editor.click(function () {
-          window.open('https://aven9.github.io/kyuu-gallery/editor?file=' + encodeURIComponent(imgLink));
-        })
         // key
         window.onkeydown = function album_hotkey() {
           //[键盘快捷键] 左箭头 上一张
@@ -1044,7 +1068,7 @@
       </script>
       <style>
         body {
-          background-color: #fff;
+          background-color: var(--surface-2);
         }
 
         .fullscreen-pic {
@@ -1071,7 +1095,7 @@
         }
 
         .pic-item {
-          background-color: black;
+          background-color: var(--photo-mat);
           background-size: cover;
           background-position: center;
           transition: all .1s ease-in-out;
@@ -1127,7 +1151,7 @@
         .album-tool {
           display: inline-flex;
           font-size: .8em;
-          color: #71afdd;
+          color: var(--main-color);
           gap: 4px;
           padding-bottom: 4px;
         }
@@ -1138,14 +1162,30 @@
         }
 
         .album-item {
-          background-color: black;
+          background-color: var(--surface-2);
           aspect-ratio: 1 / 1;
-          border: 0.8px solid black;
-          border-radius: 2px;
-          min-height: 100px;
-          min-width: 100px;
-          background-size: cover;
-          background-position: center;
+          border: 0.8px solid var(--border-subtle);
+          border-radius: var(--tile-radius);
+          /* 尺寸必须写死。以前 .album-item 是个空 <a>（背景图不产生内容尺寸），
+             靠 min-width 就能收成小方块；现在里面装了张 1000px 的缩略图，
+             flex 基准尺寸会变成 1000px，不写死就会把整条缩略图带撑爆。 */
+          width: 100px;
+          height: 100px;
+          flex: 0 0 auto;
+          position: relative;
+          overflow: hidden;
+        }
+
+        /* 缩略图改用真 <img>（原来是 lazyload.js 往 <a> 上刷 background-image），
+           好处是走浏览器原生的 loading/decoding。pointer-events: none 让点击穿透到
+           外层 <a>——changeimg() 读的是 event.target 上的 data-src，不穿透就点不动了；
+           顺带也禁掉了缩略图被拖走的默认行为。 */
+        .album-item img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          pointer-events: none;
         }
 
         @media (max-width: 768px) {
@@ -1243,15 +1283,15 @@
           }
 
           .pic-item {
-            background-color: black;
+            background-color: var(--photo-mat);
           }
 
           .album-item {
-            background-color: black;
+            background-color: var(--photo-mat);
           }
 
           .album-item {
-            border: 0.8px solid white;
+            border: 0.8px solid var(--border-subtle);
           }
         }
 
@@ -1295,25 +1335,12 @@
 <link rel="stylesheet" href="" />
 <script src="/kyuu-gallery/js/fancybox.umd.js" defer></script>
 
-<!-- mdui -->
-
 <!-- busuanzi -->
 
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script> -->
 
 <!-- highlightjs -->
 
-
-<script src="/kyuu-gallery/js/highlight.min.js"></script>
-
-<script>window.addEventListener('load', () => {
-  hljs.highlightAll(); // initialize highlighting
-});</script>
-<script>
-  $("pre.code").each(function() {
-    $(this).html("<ol><li>" + $(this).html().replace(/\n/g, "\n</li><li>") + "\n</li></ol>");
-  });
-</script>
 
 
 
@@ -1345,6 +1372,62 @@
 <!---->
 <!---->
 <!--首页键盘快捷键-->
+
+
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var KEY = 'sdt.overrides.v1';
+
+  window.__sdtDefaultSkin = 'modern';
+  window.__sdtShowButton = false;
+
+  // ── 1) 重放覆盖 ────────────────────────────────────────────────────────
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY)) || {};
+    if (saved['data-skin']) root.dataset.skin = saved['data-skin'];
+    Object.keys(saved).forEach(function (k) {
+      if (k !== 'data-skin') root.style.setProperty(k, saved[k]);
+    });
+  } catch (e) { /* localStorage 不可用（隐私模式等）时就当没存过 */ }
+
+  // ── 2) Shift+D ─────────────────────────────────────────────────────────
+  var loading = false;
+
+  function summon() {
+    if (window.__sdtToggle) { window.__sdtToggle(); return; }   // 已加载，直接开关
+    if (loading) return;
+    loading = true;
+    var s = document.createElement('script');
+    s.src = '/kyuu-gallery/js/skin-devtool.js';
+    s.onload = function () {
+      window.__sdtInit();
+      window.__sdtToggle();      // 首次唤出直接打开，不用再按一次
+    };
+    s.onerror = function () {
+      loading = false;
+      console.warn('[skin-devtool] 加载失败：' + s.src);
+    };
+    document.head.appendChild(s);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'D' || !e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return;
+    // 输入焦点保护。主题原有的 Shift+1..5 快捷键没做这个，在评论框里敲字会误触
+    // （上游 e538133 也修过一次同类问题）。这里从一开始就带上。
+    var el = document.activeElement;
+    if (el && (el.isContentEditable ||
+               /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+    e.preventDefault();
+    summon();
+  });
+
+  // 配置里开了浮标，就得先把面板加载出来才有按钮可点
+  if (window.__sdtShowButton) summon();
+})();
+</script>
+
 
   <style>
   :root {

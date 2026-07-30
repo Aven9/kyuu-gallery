@@ -3,7 +3,8 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+
+<html lang="zh-CN" data-skin="modern">
 <!-- Head tag -->
 <head>
   <meta charset="utf-8">
@@ -105,6 +106,10 @@
   }
 </style>
 
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/tokens.css">
+
   <!-- Custom CSS/Sass -->
   
 <link rel="stylesheet" href="/kyuu-gallery/css/style.css">
@@ -112,21 +117,30 @@
   
 <link rel="stylesheet" href="/kyuu-gallery/css/fancybox.css">
 
-  <!--样式切换-->
-  
   
 <link rel="stylesheet" href="/kyuu-gallery/css/material3.css">
 
   
   
   
-  
-  
-  <!--highlight.js CSS-->
-  
-  
-<link rel="stylesheet" href="/kyuu-gallery/css/highlight/github.css">
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/classic.css">
 
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/darkroom.css">
+
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/gallery.css">
+
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/editorial.css">
+
+  
+  
+  
+  
   
   
 
@@ -387,30 +401,24 @@
 
 
 
-<style>
-  .navicon {
-    font-size: 18px;
-    padding-top: 18px;
-    color: var(--main-black);
-  }
-</style>
+
   <!-- Main Content -->
-  <script src="js/html2canvas.min.js" defer></script>
-<script src="js/mini-live-photo.js"></script>
+  <script src="js/mini-live-photo.js"></script>
 <section class="pjax-area">
   <div class="content-area post-album fullscreen-content-area">
     <div class="grid grid-cols-3">
       <div class="fullscreen-pic gap-2 wrapper">
         <div id="all-pic" class="pic-area">
           <div id="pic-g" class="pic-item" />
-          <img id="imgbox" class="pic-box nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7583.webp" />
+          <img id="imgbox" class="pic-box nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7583.webp" alt="" decoding="async" fetchpriority="high" />
         </div>
         <div id="exif-wrapper" class="pic-wrapper">
     <div class="exif-left" style="display: flex; flex-direction: column; justify-content: center;">
         <div id="exif-param"></div>
         <div id="exif-date"></div>
     </div>
-    <div class="exif-right" style="display: flex; flex-direction: column; justify-self: center;">
+    
+    <div class="exif-right" style="display: flex; flex-direction: column; justify-content: center;">
         <div style="display: flex; flex-direction:row; justify-content: start;">
             <div style="display: flex; justify-content: center; flex-direction: column;">
                 <img id="exif-maker-logo" class="nofancy" style="object-fit: cover;"></img>
@@ -464,9 +472,26 @@
     }
 
     #exif-lens {
+        /* 镜头型号可能很长，需要「超出截断 + 省略号」。原来直接写 overflow: hidden，
+           但它连纵向一起裁：实测这行字的墨迹会伸出行盒约 1.8px（字体 ascent +
+           descent 之和大于 line-height），底部因此被削。屏幕上 12.8px 字号看不出，
+           下载图放大 4.6 倍后很明显——看着像和下一行叠在一起。
+
+           试过几条路都不行：
+           - overflow-x: hidden + overflow-y: visible ——按 CSS 规范，一个方向非
+             visible 时另一个的 visible 会被算成 auto，照样裁；
+           - overflow-clip-margin ——html2canvas 不支持，实测无效；
+           - 单纯加大 line-height ——盒子变高的同时文字也整体下移，余量只从
+             0.3px 涨到 0.6px，白付出行距。
+
+           成立的做法：padding 在盒子内侧，能把裁剪边往下推；再用等量负 margin
+           抵消掉它对布局的影响，卡片高度不变。实测墨迹底部回到 622.5px，与
+           overflow: visible 的基准完全一致，即一点没被削。 */
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+        padding-bottom: 4px;
+        margin-bottom: -4px;
     }
 
     .pic-wrapper {
@@ -612,14 +637,15 @@
           
           
           
-          <a class="album-item lazy" id="0"
+          <a class="album-item" id="0"
             name="DSCF7583" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7583.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7583.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7583","path":"GongQingForestPark/DSCF7583.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7583.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7583.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7583.webp"
-            aria-label="the photo 0"></a>
+            aria-label="the photo 0"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7583.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -632,14 +658,15 @@
           
           
           
-          <a class="album-item lazy" id="1"
+          <a class="album-item" id="1"
             name="DSCF7589" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7589.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7589.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7589","path":"GongQingForestPark/DSCF7589.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7589.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7589.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7589.webp"
-            aria-label="the photo 1"></a>
+            aria-label="the photo 1"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7589.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -652,14 +679,15 @@
           
           
           
-          <a class="album-item lazy" id="2"
+          <a class="album-item" id="2"
             name="DSCF7605" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7605.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7605.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7605","path":"GongQingForestPark/DSCF7605.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7605.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7605.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7605.webp"
-            aria-label="the photo 2"></a>
+            aria-label="the photo 2"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7605.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -672,14 +700,15 @@
           
           
           
-          <a class="album-item lazy" id="3"
+          <a class="album-item" id="3"
             name="DSCF7611" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7611.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7611.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7611","path":"GongQingForestPark/DSCF7611.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7611.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7611.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7611.webp"
-            aria-label="the photo 3"></a>
+            aria-label="the photo 3"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7611.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -692,14 +721,15 @@
           
           
           
-          <a class="album-item lazy" id="4"
+          <a class="album-item" id="4"
             name="DSCF7612" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7612.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7612.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7612","path":"GongQingForestPark/DSCF7612.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7612.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7612.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7612.webp"
-            aria-label="the photo 4"></a>
+            aria-label="the photo 4"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7612.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -712,14 +742,15 @@
           
           
           
-          <a class="album-item lazy" id="5"
+          <a class="album-item" id="5"
             name="DSCF7614" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7614.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7614.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7614","path":"GongQingForestPark/DSCF7614.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7614.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7614.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7614.webp"
-            aria-label="the photo 5"></a>
+            aria-label="the photo 5"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7614.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -732,14 +763,15 @@
           
           
           
-          <a class="album-item lazy" id="6"
+          <a class="album-item" id="6"
             name="DSCF7622" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7622.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7622.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7622","path":"GongQingForestPark/DSCF7622.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7622.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7622.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7622.webp"
-            aria-label="the photo 6"></a>
+            aria-label="the photo 6"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7622.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -752,14 +784,15 @@
           
           
           
-          <a class="album-item lazy" id="7"
+          <a class="album-item" id="7"
             name="DSCF7625" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7625.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7625.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7625","path":"GongQingForestPark/DSCF7625.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7625.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7625.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7625.webp"
-            aria-label="the photo 7"></a>
+            aria-label="the photo 7"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7625.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -772,14 +805,15 @@
           
           
           
-          <a class="album-item lazy" id="8"
+          <a class="album-item" id="8"
             name="DSCF7629" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7629.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7629.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7629","path":"GongQingForestPark/DSCF7629.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7629.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7629.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7629.webp"
-            aria-label="the photo 8"></a>
+            aria-label="the photo 8"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7629.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -792,14 +826,15 @@
           
           
           
-          <a class="album-item lazy" id="9"
+          <a class="album-item" id="9"
             name="DSCF7642" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7642.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7642.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7642","path":"GongQingForestPark/DSCF7642.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7642.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7642.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7642.webp"
-            aria-label="the photo 9"></a>
+            aria-label="the photo 9"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7642.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -812,14 +847,15 @@
           
           
           
-          <a class="album-item lazy" id="10"
+          <a class="album-item" id="10"
             name="DSCF7650" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7650.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7650.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7650","path":"GongQingForestPark/DSCF7650.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7650.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7650.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7650.webp"
-            aria-label="the photo 10"></a>
+            aria-label="the photo 10"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7650.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -832,14 +868,15 @@
           
           
           
-          <a class="album-item lazy" id="11"
+          <a class="album-item" id="11"
             name="DSCF7654" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7654.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7654.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7654","path":"GongQingForestPark/DSCF7654.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7654.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7654.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7654.webp"
-            aria-label="the photo 11"></a>
+            aria-label="the photo 11"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7654.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -852,14 +889,15 @@
           
           
           
-          <a class="album-item lazy" id="12"
+          <a class="album-item" id="12"
             name="DSCF7660" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7660.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7660.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7660","path":"GongQingForestPark/DSCF7660.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7660.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7660.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7660.webp"
-            aria-label="the photo 12"></a>
+            aria-label="the photo 12"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7660.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -872,14 +910,15 @@
           
           
           
-          <a class="album-item lazy" id="13"
+          <a class="album-item" id="13"
             name="DSCF7662" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7662.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7662.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7662","path":"GongQingForestPark/DSCF7662.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7662.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7662.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7662.webp"
-            aria-label="the photo 13"></a>
+            aria-label="the photo 13"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7662.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -892,14 +931,15 @@
           
           
           
-          <a class="album-item lazy" id="14"
+          <a class="album-item" id="14"
             name="DSCF7673" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7673.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7673.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7673","path":"GongQingForestPark/DSCF7673.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7673.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7673.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7673.webp"
-            aria-label="the photo 14"></a>
+            aria-label="the photo 14"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7673.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -912,14 +952,15 @@
           
           
           
-          <a class="album-item lazy" id="15"
+          <a class="album-item" id="15"
             name="DSCF7674" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7674.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7674.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7674","path":"GongQingForestPark/DSCF7674.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7674.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7674.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7674.webp"
-            aria-label="the photo 15"></a>
+            aria-label="the photo 15"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7674.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -932,14 +973,15 @@
           
           
           
-          <a class="album-item lazy" id="16"
+          <a class="album-item" id="16"
             name="DSCF7676" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7676.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7676.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7676","path":"GongQingForestPark/DSCF7676.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7676.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7676.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7676.webp"
-            aria-label="the photo 16"></a>
+            aria-label="the photo 16"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7676.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -952,14 +994,15 @@
           
           
           
-          <a class="album-item lazy" id="17"
+          <a class="album-item" id="17"
             name="DSCF7705" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7705.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7705.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7705","path":"GongQingForestPark/DSCF7705.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7705.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7705.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7705.webp"
-            aria-label="the photo 17"></a>
+            aria-label="the photo 17"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7705.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -972,14 +1015,15 @@
           
           
           
-          <a class="album-item lazy" id="18"
+          <a class="album-item" id="18"
             name="DSCF7706" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7706.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7706.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7706","path":"GongQingForestPark/DSCF7706.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7706.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7706.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7706.webp"
-            aria-label="the photo 18"></a>
+            aria-label="the photo 18"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7706.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -992,14 +1036,15 @@
           
           
           
-          <a class="album-item lazy" id="19"
+          <a class="album-item" id="19"
             name="DSCF7717" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7717.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7717.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7717","path":"GongQingForestPark/DSCF7717.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7717.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7717.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7717.webp"
-            aria-label="the photo 19"></a>
+            aria-label="the photo 19"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7717.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1012,14 +1057,15 @@
           
           
           
-          <a class="album-item lazy" id="20"
+          <a class="album-item" id="20"
             name="DSCF7718" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7718.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7718.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7718","path":"GongQingForestPark/DSCF7718.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7718.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7718.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7718.webp"
-            aria-label="the photo 20"></a>
+            aria-label="the photo 20"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7718.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1032,14 +1078,15 @@
           
           
           
-          <a class="album-item lazy" id="21"
+          <a class="album-item" id="21"
             name="DSCF7722" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7722.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7722.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7722","path":"GongQingForestPark/DSCF7722.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7722.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7722.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7722.webp"
-            aria-label="the photo 21"></a>
+            aria-label="the photo 21"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7722.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1052,14 +1099,15 @@
           
           
           
-          <a class="album-item lazy" id="22"
+          <a class="album-item" id="22"
             name="DSCF7729" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7729.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7729.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7729","path":"GongQingForestPark/DSCF7729.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7729.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7729.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7729.webp"
-            aria-label="the photo 22"></a>
+            aria-label="the photo 22"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7729.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1072,14 +1120,15 @@
           
           
           
-          <a class="album-item lazy" id="23"
+          <a class="album-item" id="23"
             name="DSCF7730" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7730.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7730.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7730","path":"GongQingForestPark/DSCF7730.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7730.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7730.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7730.webp"
-            aria-label="the photo 23"></a>
+            aria-label="the photo 23"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7730.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1092,14 +1141,15 @@
           
           
           
-          <a class="album-item lazy" id="24"
+          <a class="album-item" id="24"
             name="DSCF7735" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7735.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7735.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7735","path":"GongQingForestPark/DSCF7735.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7735.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7735.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7735.webp"
-            aria-label="the photo 24"></a>
+            aria-label="the photo 24"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7735.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1112,14 +1162,15 @@
           
           
           
-          <a class="album-item lazy" id="25"
+          <a class="album-item" id="25"
             name="DSCF7736" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7736.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7736.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7736","path":"GongQingForestPark/DSCF7736.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7736.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7736.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7736.webp"
-            aria-label="the photo 25"></a>
+            aria-label="the photo 25"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7736.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1132,14 +1183,15 @@
           
           
           
-          <a class="album-item lazy" id="26"
+          <a class="album-item" id="26"
             name="DSCF7739" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7739.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7739.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7739","path":"GongQingForestPark/DSCF7739.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7739.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7739.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7739.webp"
-            aria-label="the photo 26"></a>
+            aria-label="the photo 26"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7739.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1152,14 +1204,15 @@
           
           
           
-          <a class="album-item lazy" id="27"
+          <a class="album-item" id="27"
             name="DSCF7740" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7740.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7740.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7740","path":"GongQingForestPark/DSCF7740.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7740.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7740.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7740.webp"
-            aria-label="the photo 27"></a>
+            aria-label="the photo 27"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7740.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -1172,14 +1225,15 @@
           
           
           
-          <a class="album-item lazy" id="28"
+          <a class="album-item" id="28"
             name="DSCF7775" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7775.webp"
             desc=" - · - "
             share="GongQingForestPark/DSCF7775.webp"
             video=""
             extra='{"desc":null,"dir":"GongQingForestPark","exif":"","exif_data":{},"location":[],"name":"DSCF7775","path":"GongQingForestPark/DSCF7775.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7775.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/GongQingForestPark/DSCF7775.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7775.webp"
-            aria-label="the photo 28"></a>
+            aria-label="the photo 28"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//GongQingForestPark/DSCF7775.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
       </div>
       <div class="text-center text-xs pt-2 hint-text"> </div>
@@ -1197,9 +1251,6 @@
           </div>
           <div class="album-share album-tool">
             <iconpark-icon name="down-picture"></iconpark-icon><a id="download" href="javascript:void(0)"> Download </a>
-          </div>
-          <div class="album-share album-tool">
-            <iconpark-icon name="save"></iconpark-icon><a id="editor" href="javascript:void(0)"> Editor </a>
           </div>
           <div class="album-share album-tool">
             <iconpark-icon name="grid-nine"></iconpark-icon><a id="grid" href="javascript:void(0)"> Grid </a>
@@ -1237,7 +1288,6 @@
         var normalWrapper = $("#normal-wrapper");
         var normalData = $("#no-exif-data");
         var name = getParam('name');
-        var editor = $("#editor");
         imgno = 0;
         imgLink = imageBox.src;
         // Monotonic token: guards against a slow earlier high-res load finishing
@@ -1353,19 +1403,14 @@
         }
 
         $('#download').click(function () {
-          var node = document.getElementById('all-pic');
-          html2canvas(node, {
-            useCORS: true,
-            allowTaint: true,
-            scrollX: 0,
-            scrollY: 0,
-          }).then(function (canvas) {
-            simulateDownloadImageClick(canvas.toDataURL('image/png'),  name + '.png');
+          downloadFramedPhoto({
+            node: document.getElementById('all-pic'),
+            img: imageBox,
+            fullSrc: imgLink,      // 当前选中照片的原图，不是缩略图
+            filename: name,
+            button: this,
           });
         });
-        editor.click(function () {
-          window.open('https://aven9.github.io/kyuu-gallery/editor?file=' + encodeURIComponent(imgLink));
-        })
         // key
         window.onkeydown = function album_hotkey() {
           //[键盘快捷键] 左箭头 上一张
@@ -1464,7 +1509,7 @@
       </script>
       <style>
         body {
-          background-color: #fff;
+          background-color: var(--surface-2);
         }
 
         .fullscreen-pic {
@@ -1491,7 +1536,7 @@
         }
 
         .pic-item {
-          background-color: black;
+          background-color: var(--photo-mat);
           background-size: cover;
           background-position: center;
           transition: all .1s ease-in-out;
@@ -1547,7 +1592,7 @@
         .album-tool {
           display: inline-flex;
           font-size: .8em;
-          color: #71afdd;
+          color: var(--main-color);
           gap: 4px;
           padding-bottom: 4px;
         }
@@ -1558,14 +1603,30 @@
         }
 
         .album-item {
-          background-color: black;
+          background-color: var(--surface-2);
           aspect-ratio: 1 / 1;
-          border: 0.8px solid black;
-          border-radius: 2px;
-          min-height: 100px;
-          min-width: 100px;
-          background-size: cover;
-          background-position: center;
+          border: 0.8px solid var(--border-subtle);
+          border-radius: var(--tile-radius);
+          /* 尺寸必须写死。以前 .album-item 是个空 <a>（背景图不产生内容尺寸），
+             靠 min-width 就能收成小方块；现在里面装了张 1000px 的缩略图，
+             flex 基准尺寸会变成 1000px，不写死就会把整条缩略图带撑爆。 */
+          width: 100px;
+          height: 100px;
+          flex: 0 0 auto;
+          position: relative;
+          overflow: hidden;
+        }
+
+        /* 缩略图改用真 <img>（原来是 lazyload.js 往 <a> 上刷 background-image），
+           好处是走浏览器原生的 loading/decoding。pointer-events: none 让点击穿透到
+           外层 <a>——changeimg() 读的是 event.target 上的 data-src，不穿透就点不动了；
+           顺带也禁掉了缩略图被拖走的默认行为。 */
+        .album-item img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          pointer-events: none;
         }
 
         @media (max-width: 768px) {
@@ -1663,15 +1724,15 @@
           }
 
           .pic-item {
-            background-color: black;
+            background-color: var(--photo-mat);
           }
 
           .album-item {
-            background-color: black;
+            background-color: var(--photo-mat);
           }
 
           .album-item {
-            border: 0.8px solid white;
+            border: 0.8px solid var(--border-subtle);
           }
         }
 
@@ -1715,25 +1776,12 @@
 <link rel="stylesheet" href="" />
 <script src="/kyuu-gallery/js/fancybox.umd.js" defer></script>
 
-<!-- mdui -->
-
 <!-- busuanzi -->
 
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script> -->
 
 <!-- highlightjs -->
 
-
-<script src="/kyuu-gallery/js/highlight.min.js"></script>
-
-<script>window.addEventListener('load', () => {
-  hljs.highlightAll(); // initialize highlighting
-});</script>
-<script>
-  $("pre.code").each(function() {
-    $(this).html("<ol><li>" + $(this).html().replace(/\n/g, "\n</li><li>") + "\n</li></ol>");
-  });
-</script>
 
 
 
@@ -1765,6 +1813,62 @@
 <!---->
 <!---->
 <!--首页键盘快捷键-->
+
+
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var KEY = 'sdt.overrides.v1';
+
+  window.__sdtDefaultSkin = 'modern';
+  window.__sdtShowButton = false;
+
+  // ── 1) 重放覆盖 ────────────────────────────────────────────────────────
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY)) || {};
+    if (saved['data-skin']) root.dataset.skin = saved['data-skin'];
+    Object.keys(saved).forEach(function (k) {
+      if (k !== 'data-skin') root.style.setProperty(k, saved[k]);
+    });
+  } catch (e) { /* localStorage 不可用（隐私模式等）时就当没存过 */ }
+
+  // ── 2) Shift+D ─────────────────────────────────────────────────────────
+  var loading = false;
+
+  function summon() {
+    if (window.__sdtToggle) { window.__sdtToggle(); return; }   // 已加载，直接开关
+    if (loading) return;
+    loading = true;
+    var s = document.createElement('script');
+    s.src = '/kyuu-gallery/js/skin-devtool.js';
+    s.onload = function () {
+      window.__sdtInit();
+      window.__sdtToggle();      // 首次唤出直接打开，不用再按一次
+    };
+    s.onerror = function () {
+      loading = false;
+      console.warn('[skin-devtool] 加载失败：' + s.src);
+    };
+    document.head.appendChild(s);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'D' || !e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return;
+    // 输入焦点保护。主题原有的 Shift+1..5 快捷键没做这个，在评论框里敲字会误触
+    // （上游 e538133 也修过一次同类问题）。这里从一开始就带上。
+    var el = document.activeElement;
+    if (el && (el.isContentEditable ||
+               /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+    e.preventDefault();
+    summon();
+  });
+
+  // 配置里开了浮标，就得先把面板加载出来才有按钮可点
+  if (window.__sdtShowButton) summon();
+})();
+</script>
+
 
   <style>
   :root {

@@ -3,7 +3,8 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+
+<html lang="zh-CN" data-skin="modern">
 <!-- Head tag -->
 <head>
   <meta charset="utf-8">
@@ -22,7 +23,7 @@
   <meta name="author" content="kyuu">
   
   <!--Open Graph Title-->
-  <meta property="og:title" content="编辑器" />
+  <meta property="og:title" content="照片集" />
   <!--Open Graph Description-->
   <meta property="og:description" content="拿起相机，认真思考" />
   <!--Open Graph Site Name-->
@@ -38,7 +39,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- Title -->
   
-  <title>编辑器 - Kyuu Gallery</title>
+  <title>照片集 - Kyuu Gallery</title>
   <!-- 添加到主屏后的标题（iOS 6 新增） -->
   <meta name="apple-mobile-web-app-title" content="Kyuu Gallery">
   <!-- 是否启用 WebApp 全屏模式 -->
@@ -105,6 +106,10 @@
   }
 </style>
 
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/tokens.css">
+
   <!-- Custom CSS/Sass -->
   
 <link rel="stylesheet" href="/kyuu-gallery/css/style.css">
@@ -112,21 +117,30 @@
   
 <link rel="stylesheet" href="/kyuu-gallery/css/fancybox.css">
 
-  <!--样式切换-->
-  
   
 <link rel="stylesheet" href="/kyuu-gallery/css/material3.css">
 
   
   
   
-  
-  
-  <!--highlight.js CSS-->
-  
-  
-<link rel="stylesheet" href="/kyuu-gallery/css/highlight/github.css">
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/classic.css">
 
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/darkroom.css">
+
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/gallery.css">
+
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/editorial.css">
+
+  
+  
+  
+  
   
   
 
@@ -159,6 +173,21 @@
   -->
   
   
+  
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsArticle",
+      "headline": "照片集",
+      "image": "https://imgur.lzmun.com/picgo/after2022/6DD1FBC3-AD8A-4340-842D-6ACF531F8291_1_105_c.jpeg_itp",
+      "datePublished": "Fri Aug 18 2023 11:36:16 GMT+0000",
+      "author": [{
+        "@type": "Person",
+        "name": "kyuu",
+        "url": "https://aven9.github.io/kyuu-gallery"
+      }]
+    }
+  </script>
   
   
   
@@ -387,50 +416,134 @@
 
 
 
-<style>
-  .navicon {
-    font-size: 18px;
-    padding-top: 18px;
-    color: var(--main-black);
-  }
-</style>
+
   <!-- Main Content -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
-<script
-    src="https://scaleflex.cloudimg.io/v7/plugins/filerobot-image-editor/latest/filerobot-image-editor.min.js?func=proxy"></script>
-<section class="pjax-area">
-    <div id="image-editor" style="height: 100vh; width: 100%;"></div>
-    <script>
-        const container = document.getElementById("image-editor");
-        const { TABS, TOOLS } = FilerobotImageEditor;
-        const file = getParam('file');
-        const config = {
-            source: file,
-            defaultTabId: TABS.FILTERS,
-        };
-        console.log(TABS.FILTERS)
-        const ImageEditor = new window.FilerobotImageEditor(container, config);
-        ImageEditor.render({
-            // additional config provided while rendering
-            observePluginContainerSize: true,
-            onSave: (imageInfo, designState) => {
-                const tmpLink = document.createElement("a");
-                tmpLink.download = imageInfo.fullName;
-                tmpLink.href = imageInfo.imageBase64;
-                tmpLink.style = "position: absolute; z-index: -111; visibility: none;";
-                document.body.appendChild(tmpLink);
-                tmpLink.click();
-                document.body.removeChild(tmpLink);
-            }
-        });
-    </script>
-    <style>
-        @media (min-width: 769px) {
-            #image-editor {
-                padding-top: 58px;
-            }
-        }
-    </style>
+  <section class="pjax-area">
+  <div class="content-area album-area">
+    
+    <div class="container gpro-slogan title">
+      The moments when I pressed the shutter, the moments are forever.
+    </div>
+    
+    <div class="container gpro-container grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      
+      
+      <a href="Yuyuan">
+        <div class="gpro-tile lazy" data-src="Yuyuan/DSCF8697.webp">
+          <div class="gpro-tile-descr">Yuyuan</div>
+        </div>
+      </a>
+      
+      <a href="HonkaiStarRail">
+        <div class="gpro-tile lazy" data-src="HonkaiStarRail/DSCF8247.webp">
+          <div class="gpro-tile-descr">StarRail</div>
+        </div>
+      </a>
+      
+      <a href="FujiWeek">
+        <div class="gpro-tile lazy" data-src="FujiWeek/DSCF7846.webp">
+          <div class="gpro-tile-descr">FujiWeek</div>
+        </div>
+      </a>
+      
+      <a href="GongQingForestPark">
+        <div class="gpro-tile lazy" data-src="GongQingForestPark/DSCF7717.webp">
+          <div class="gpro-tile-descr">共青森林公园</div>
+        </div>
+      </a>
+      
+      <a href="XingChenJiXing">
+        <div class="gpro-tile lazy" data-src="XingChenJiXing/DSCF7490.webp">
+          <div class="gpro-tile-descr">星辰纪行</div>
+        </div>
+      </a>
+      
+    </div>
+  </div>
+  <script>
+    $(function() {
+      $("div.lazy").lazyload();
+    });
+  </script>
+  <style>
+    body {
+      background-color: #fff;
+    }
+
+    .album-area {
+      margin-top: 120px;
+      padding-left: 16px;
+      padding-right: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .gpro-slogan {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 700;
+      color: #3D4350;
+    }
+
+    .gpro-container {
+      margin-top: 120px;
+      gap: 8px;
+    }
+
+    .gpro-tile {
+      aspect-ratio: 3 / 2;
+      background-position: center;
+      background-size: cover;
+      border-radius: 5px;
+      transition: all .15s ease-in-out;
+      min-height: 211px;
+    }
+
+    .gpro-tile:hover {
+      box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
+      transform: scale(1.02);
+      transition: all .15s ease-in-out;
+    }
+
+    .gpro-tile-descr {
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(#00000000 50%, #00000055 100%);
+      color: #fff;
+      font-size: 14px;
+      border-radius: 5px;
+      opacity: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      text-overflow: clip;
+      transition: all .15s ease-in-out;
+      padding-bottom: .85em;
+    }
+
+    .gpro-tile-descr:hover {
+      opacity: 1;
+      transition: all .15s ease-in-out;
+    }
+
+    @media (max-width: 768px) {
+      .gpro-slogan {
+        font-size: 28px;
+      }
+
+      .content-area {
+        margin-top: 80px;
+      }
+
+      .gpro-container {
+        margin-top: 60px;
+      }
+    }
+  </style>
 </section>
   <!-- Footer -->
   <!-- Footer -->
@@ -458,25 +571,12 @@
 <link rel="stylesheet" href="" />
 <script src="/kyuu-gallery/js/fancybox.umd.js" defer></script>
 
-<!-- mdui -->
-
 <!-- busuanzi -->
 
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script> -->
 
 <!-- highlightjs -->
 
-
-<script src="/kyuu-gallery/js/highlight.min.js"></script>
-
-<script>window.addEventListener('load', () => {
-  hljs.highlightAll(); // initialize highlighting
-});</script>
-<script>
-  $("pre.code").each(function() {
-    $(this).html("<ol><li>" + $(this).html().replace(/\n/g, "\n</li><li>") + "\n</li></ol>");
-  });
-</script>
 
 
 
@@ -508,6 +608,62 @@
 <!---->
 <!---->
 <!--首页键盘快捷键-->
+
+
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var KEY = 'sdt.overrides.v1';
+
+  window.__sdtDefaultSkin = 'modern';
+  window.__sdtShowButton = false;
+
+  // ── 1) 重放覆盖 ────────────────────────────────────────────────────────
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY)) || {};
+    if (saved['data-skin']) root.dataset.skin = saved['data-skin'];
+    Object.keys(saved).forEach(function (k) {
+      if (k !== 'data-skin') root.style.setProperty(k, saved[k]);
+    });
+  } catch (e) { /* localStorage 不可用（隐私模式等）时就当没存过 */ }
+
+  // ── 2) Shift+D ─────────────────────────────────────────────────────────
+  var loading = false;
+
+  function summon() {
+    if (window.__sdtToggle) { window.__sdtToggle(); return; }   // 已加载，直接开关
+    if (loading) return;
+    loading = true;
+    var s = document.createElement('script');
+    s.src = '/kyuu-gallery/js/skin-devtool.js';
+    s.onload = function () {
+      window.__sdtInit();
+      window.__sdtToggle();      // 首次唤出直接打开，不用再按一次
+    };
+    s.onerror = function () {
+      loading = false;
+      console.warn('[skin-devtool] 加载失败：' + s.src);
+    };
+    document.head.appendChild(s);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'D' || !e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return;
+    // 输入焦点保护。主题原有的 Shift+1..5 快捷键没做这个，在评论框里敲字会误触
+    // （上游 e538133 也修过一次同类问题）。这里从一开始就带上。
+    var el = document.activeElement;
+    if (el && (el.isContentEditable ||
+               /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+    e.preventDefault();
+    summon();
+  });
+
+  // 配置里开了浮标，就得先把面板加载出来才有按钮可点
+  if (window.__sdtShowButton) summon();
+})();
+</script>
+
 
   <style>
   :root {

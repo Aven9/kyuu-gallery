@@ -1,7 +1,4 @@
-:root {
-  --radius: 5px;
-}
-
+/** @format */
 @media screen and (min-width: 1022px) {
   .itp-gallery-content {
     padding-top: 56px;

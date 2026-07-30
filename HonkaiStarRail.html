@@ -3,7 +3,8 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+
+<html lang="zh-CN" data-skin="modern">
 <!-- Head tag -->
 <head>
   <meta charset="utf-8">
@@ -105,6 +106,10 @@
   }
 </style>
 
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/tokens.css">
+
   <!-- Custom CSS/Sass -->
   
 <link rel="stylesheet" href="/kyuu-gallery/css/style.css">
@@ -112,21 +117,30 @@
   
 <link rel="stylesheet" href="/kyuu-gallery/css/fancybox.css">
 
-  <!--样式切换-->
-  
   
 <link rel="stylesheet" href="/kyuu-gallery/css/material3.css">
 
   
   
   
-  
-  
-  <!--highlight.js CSS-->
-  
-  
-<link rel="stylesheet" href="/kyuu-gallery/css/highlight/github.css">
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/classic.css">
 
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/darkroom.css">
+
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/gallery.css">
+
+  
+  
+<link rel="stylesheet" href="/kyuu-gallery/css/skins/editorial.css">
+
+  
+  
+  
+  
   
   
 
@@ -387,30 +401,24 @@
 
 
 
-<style>
-  .navicon {
-    font-size: 18px;
-    padding-top: 18px;
-    color: var(--main-black);
-  }
-</style>
+
   <!-- Main Content -->
-  <script src="js/html2canvas.min.js" defer></script>
-<script src="js/mini-live-photo.js"></script>
+  <script src="js/mini-live-photo.js"></script>
 <section class="pjax-area">
   <div class="content-area post-album fullscreen-content-area">
     <div class="grid grid-cols-3">
       <div class="fullscreen-pic gap-2 wrapper">
         <div id="all-pic" class="pic-area">
           <div id="pic-g" class="pic-item" />
-          <img id="imgbox" class="pic-box nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8241.webp" />
+          <img id="imgbox" class="pic-box nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8241.webp" alt="" decoding="async" fetchpriority="high" />
         </div>
         <div id="exif-wrapper" class="pic-wrapper">
     <div class="exif-left" style="display: flex; flex-direction: column; justify-content: center;">
         <div id="exif-param"></div>
         <div id="exif-date"></div>
     </div>
-    <div class="exif-right" style="display: flex; flex-direction: column; justify-self: center;">
+    
+    <div class="exif-right" style="display: flex; flex-direction: column; justify-content: center;">
         <div style="display: flex; flex-direction:row; justify-content: start;">
             <div style="display: flex; justify-content: center; flex-direction: column;">
                 <img id="exif-maker-logo" class="nofancy" style="object-fit: cover;"></img>
@@ -464,9 +472,26 @@
     }
 
     #exif-lens {
+        /* 镜头型号可能很长，需要「超出截断 + 省略号」。原来直接写 overflow: hidden，
+           但它连纵向一起裁：实测这行字的墨迹会伸出行盒约 1.8px（字体 ascent +
+           descent 之和大于 line-height），底部因此被削。屏幕上 12.8px 字号看不出，
+           下载图放大 4.6 倍后很明显——看着像和下一行叠在一起。
+
+           试过几条路都不行：
+           - overflow-x: hidden + overflow-y: visible ——按 CSS 规范，一个方向非
+             visible 时另一个的 visible 会被算成 auto，照样裁；
+           - overflow-clip-margin ——html2canvas 不支持，实测无效；
+           - 单纯加大 line-height ——盒子变高的同时文字也整体下移，余量只从
+             0.3px 涨到 0.6px，白付出行距。
+
+           成立的做法：padding 在盒子内侧，能把裁剪边往下推；再用等量负 margin
+           抵消掉它对布局的影响，卡片高度不变。实测墨迹底部回到 622.5px，与
+           overflow: visible 的基准完全一致，即一点没被削。 */
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
+        padding-bottom: 4px;
+        margin-bottom: -4px;
     }
 
     .pic-wrapper {
@@ -612,14 +637,15 @@
           
           
           
-          <a class="album-item lazy" id="0"
+          <a class="album-item" id="0"
             name="DSCF8241" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8241.webp"
             desc=" - · - "
             share="HonkaiStarRail/DSCF8241.webp"
             video=""
             extra='{"desc":null,"dir":"HonkaiStarRail","exif":"FUJIFILM X-E4 1/13s F4 ISO 12800 40.7mm XF18-55mmF2.8-4 R LM OIS ","exif_data":{"EXIF DateTimeOriginal":"2023:12:10 17:43:18","EXIF ExposureTime":"1/13s","EXIF FNumber":"F4","EXIF FocalLength":"40.7mm","EXIF ISOSpeedRatings":"ISO 12800","EXIF LensModel":"XF18-55mmF2.8-4 R LM OIS","Image Make":"FUJIFILM","Image Model":"X-E4"},"location":[],"name":"DSCF8241","path":"HonkaiStarRail/DSCF8241.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8241.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8241.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8241.webp"
-            aria-label="the photo 0"></a>
+            aria-label="the photo 0"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8241.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -632,14 +658,15 @@
           
           
           
-          <a class="album-item lazy" id="1"
+          <a class="album-item" id="1"
             name="DSCF8243" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8243.webp"
             desc=" - · - "
             share="HonkaiStarRail/DSCF8243.webp"
             video=""
             extra='{"desc":null,"dir":"HonkaiStarRail","exif":"FUJIFILM X-E4 1/80s F3.2 ISO 12800 28.9mm 18.0-55.0 mm f/2.8-4.0 ","exif_data":{"EXIF DateTimeOriginal":"2023:12:10 17:44:34","EXIF ExposureTime":"1/80s","EXIF FNumber":"F3.2","EXIF FocalLength":"28.9mm","EXIF ISOSpeedRatings":"ISO 12800","EXIF LensModel":"18.0-55.0 mm f/2.8-4.0","Image Make":"FUJIFILM","Image Model":"X-E4"},"location":[],"name":"DSCF8243","path":"HonkaiStarRail/DSCF8243.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8243.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8243.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8243.webp"
-            aria-label="the photo 1"></a>
+            aria-label="the photo 1"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8243.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -652,14 +679,15 @@
           
           
           
-          <a class="album-item lazy" id="2"
+          <a class="album-item" id="2"
             name="DSCF8245" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8245.webp"
             desc=" - · - "
             share="HonkaiStarRail/DSCF8245.webp"
             video=""
             extra='{"desc":null,"dir":"HonkaiStarRail","exif":"FUJIFILM X-E4 1/60s F3.6 ISO 12800 37.4mm 18.0-55.0 mm f/2.8-4.0 ","exif_data":{"EXIF DateTimeOriginal":"2023:12:10 17:46:04","EXIF ExposureTime":"1/60s","EXIF FNumber":"F3.6","EXIF FocalLength":"37.4mm","EXIF ISOSpeedRatings":"ISO 12800","EXIF LensModel":"18.0-55.0 mm f/2.8-4.0","Image Make":"FUJIFILM","Image Model":"X-E4"},"location":[],"name":"DSCF8245","path":"HonkaiStarRail/DSCF8245.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8245.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8245.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8245.webp"
-            aria-label="the photo 2"></a>
+            aria-label="the photo 2"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8245.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -672,14 +700,15 @@
           
           
           
-          <a class="album-item lazy" id="3"
+          <a class="album-item" id="3"
             name="DSCF8247" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8247.webp"
             desc=" - · - "
             share="HonkaiStarRail/DSCF8247.webp"
             video=""
             extra='{"desc":null,"dir":"HonkaiStarRail","exif":"FUJIFILM X-E4 1/60s F3.2 ISO 12800 25.4mm XF18-55mmF2.8-4 R LM OIS ","exif_data":{"EXIF DateTimeOriginal":"2023:12:10 17:47:07","EXIF ExposureTime":"1/60s","EXIF FNumber":"F3.2","EXIF FocalLength":"25.4mm","EXIF ISOSpeedRatings":"ISO 12800","EXIF LensModel":"XF18-55mmF2.8-4 R LM OIS","Image Make":"FUJIFILM","Image Model":"X-E4"},"location":[],"name":"DSCF8247","path":"HonkaiStarRail/DSCF8247.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8247.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8247.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8247.webp"
-            aria-label="the photo 3"></a>
+            aria-label="the photo 3"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8247.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -692,14 +721,15 @@
           
           
           
-          <a class="album-item lazy" id="4"
+          <a class="album-item" id="4"
             name="DSCF8248" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8248.webp"
             desc=" - · - "
             share="HonkaiStarRail/DSCF8248.webp"
             video=""
             extra='{"desc":null,"dir":"HonkaiStarRail","exif":"FUJIFILM X-E4 1/60s F4 ISO 12800 48.4mm XF18-55mmF2.8-4 R LM OIS ","exif_data":{"EXIF DateTimeOriginal":"2023:12:10 17:47:35","EXIF ExposureTime":"1/60s","EXIF FNumber":"F4","EXIF FocalLength":"48.4mm","EXIF ISOSpeedRatings":"ISO 12800","EXIF LensModel":"XF18-55mmF2.8-4 R LM OIS","Image Make":"FUJIFILM","Image Model":"X-E4"},"location":[],"name":"DSCF8248","path":"HonkaiStarRail/DSCF8248.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8248.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8248.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8248.webp"
-            aria-label="the photo 4"></a>
+            aria-label="the photo 4"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8248.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -712,14 +742,15 @@
           
           
           
-          <a class="album-item lazy" id="5"
+          <a class="album-item" id="5"
             name="DSCF8250" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8250.webp"
             desc=" - · - "
             share="HonkaiStarRail/DSCF8250.webp"
             video=""
             extra='{"desc":null,"dir":"HonkaiStarRail","exif":"FUJIFILM X-E4 1/60s F4 ISO 12800 55mm XF18-55mmF2.8-4 R LM OIS ","exif_data":{"EXIF DateTimeOriginal":"2023:12:10 17:48:46","EXIF ExposureTime":"1/60s","EXIF FNumber":"F4","EXIF FocalLength":"55mm","EXIF ISOSpeedRatings":"ISO 12800","EXIF LensModel":"XF18-55mmF2.8-4 R LM OIS","Image Make":"FUJIFILM","Image Model":"X-E4"},"location":[],"name":"DSCF8250","path":"HonkaiStarRail/DSCF8250.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8250.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8250.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8250.webp"
-            aria-label="the photo 5"></a>
+            aria-label="the photo 5"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8250.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -732,14 +763,15 @@
           
           
           
-          <a class="album-item lazy" id="6"
+          <a class="album-item" id="6"
             name="DSCF8252" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8252.webp"
             desc=" - · - "
             share="HonkaiStarRail/DSCF8252.webp"
             video=""
             extra='{"desc":null,"dir":"HonkaiStarRail","exif":"FUJIFILM X-E4 1/60s F3.2 ISO 12800 26.5mm 18.0-55.0 mm f/2.8-4.0 ","exif_data":{"EXIF DateTimeOriginal":"2023:12:10 17:50:03","EXIF ExposureTime":"1/60s","EXIF FNumber":"F3.2","EXIF FocalLength":"26.5mm","EXIF ISOSpeedRatings":"ISO 12800","EXIF LensModel":"18.0-55.0 mm f/2.8-4.0","Image Make":"FUJIFILM","Image Model":"X-E4"},"location":[],"name":"DSCF8252","path":"HonkaiStarRail/DSCF8252.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8252.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8252.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8252.webp"
-            aria-label="the photo 6"></a>
+            aria-label="the photo 6"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8252.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -752,14 +784,15 @@
           
           
           
-          <a class="album-item lazy" id="7"
+          <a class="album-item" id="7"
             name="DSCF8253" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8253.webp"
             desc=" - · - "
             share="HonkaiStarRail/DSCF8253.webp"
             video=""
             extra='{"desc":null,"dir":"HonkaiStarRail","exif":"FUJIFILM X-E4 1/60s F4 ISO 12800 46.3mm 18.0-55.0 mm f/2.8-4.0 ","exif_data":{"EXIF DateTimeOriginal":"2023:12:10 17:51:04","EXIF ExposureTime":"1/60s","EXIF FNumber":"F4","EXIF FocalLength":"46.3mm","EXIF ISOSpeedRatings":"ISO 12800","EXIF LensModel":"18.0-55.0 mm f/2.8-4.0","Image Make":"FUJIFILM","Image Model":"X-E4"},"location":[],"name":"DSCF8253","path":"HonkaiStarRail/DSCF8253.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8253.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8253.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8253.webp"
-            aria-label="the photo 7"></a>
+            aria-label="the photo 7"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8253.webp" alt=""
+              loading="eager" decoding="async"></a>
           
           
           
@@ -772,14 +805,15 @@
           
           
           
-          <a class="album-item lazy" id="8"
+          <a class="album-item" id="8"
             name="DSCF8256" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8256.webp"
             desc=" - · - "
             share="HonkaiStarRail/DSCF8256.webp"
             video=""
             extra='{"desc":null,"dir":"HonkaiStarRail","exif":"FUJIFILM X-E4 1/60s F4 ISO 12800 40.7mm 18.0-55.0 mm f/2.8-4.0 ","exif_data":{"EXIF DateTimeOriginal":"2023:12:10 17:51:41","EXIF ExposureTime":"1/60s","EXIF FNumber":"F4","EXIF FocalLength":"40.7mm","EXIF ISOSpeedRatings":"ISO 12800","EXIF LensModel":"18.0-55.0 mm f/2.8-4.0","Image Make":"FUJIFILM","Image Model":"X-E4"},"location":[],"name":"DSCF8256","path":"HonkaiStarRail/DSCF8256.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8256.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8256.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8256.webp"
-            aria-label="the photo 8"></a>
+            aria-label="the photo 8"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8256.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -792,14 +826,15 @@
           
           
           
-          <a class="album-item lazy" id="9"
+          <a class="album-item" id="9"
             name="DSCF8258" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8258.webp"
             desc=" - · - "
             share="HonkaiStarRail/DSCF8258.webp"
             video=""
             extra='{"desc":null,"dir":"HonkaiStarRail","exif":"FUJIFILM X-E4 1/60s F4 ISO 12800 55mm XF18-55mmF2.8-4 R LM OIS ","exif_data":{"EXIF DateTimeOriginal":"2023:12:10 17:52:10","EXIF ExposureTime":"1/60s","EXIF FNumber":"F4","EXIF FocalLength":"55mm","EXIF ISOSpeedRatings":"ISO 12800","EXIF LensModel":"XF18-55mmF2.8-4 R LM OIS","Image Make":"FUJIFILM","Image Model":"X-E4"},"location":[],"name":"DSCF8258","path":"HonkaiStarRail/DSCF8258.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8258.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8258.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8258.webp"
-            aria-label="the photo 9"></a>
+            aria-label="the photo 9"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8258.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
           
           
@@ -812,14 +847,15 @@
           
           
           
-          <a class="album-item lazy" id="10"
+          <a class="album-item" id="10"
             name="DSCF8259" rel="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8259.webp"
             desc=" - · - "
             share="HonkaiStarRail/DSCF8259.webp"
             video=""
             extra='{"desc":null,"dir":"HonkaiStarRail","exif":"FUJIFILM X-E4 1/60s F4 ISO 10000 50.5mm XF18-55mmF2.8-4 R LM OIS ","exif_data":{"EXIF DateTimeOriginal":"2023:12:10 17:52:38","EXIF ExposureTime":"1/60s","EXIF FNumber":"F4","EXIF FocalLength":"50.5mm","EXIF ISOSpeedRatings":"ISO 10000","EXIF LensModel":"XF18-55mmF2.8-4 R LM OIS","Image Make":"FUJIFILM","Image Model":"X-E4"},"location":[],"name":"DSCF8259","path":"HonkaiStarRail/DSCF8259.webp","thum":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8259.webp","url":"https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@bb3d26bf78d1d0f777498a24fba5c69ad2dd947e/HonkaiStarRail/DSCF8259.webp"}'
             href="javascript:void(0);" onClick="changeimg(event)" data-src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8259.webp"
-            aria-label="the photo 10"></a>
+            aria-label="the photo 10"><img class="nofancy" src="https://cdn.jsdelivr.net/gh/Aven9/kyuu-gallery@thumbnail//HonkaiStarRail/DSCF8259.webp" alt=""
+              loading="lazy" decoding="async"></a>
           
       </div>
       <div class="text-center text-xs pt-2 hint-text"> </div>
@@ -837,9 +873,6 @@
           </div>
           <div class="album-share album-tool">
             <iconpark-icon name="down-picture"></iconpark-icon><a id="download" href="javascript:void(0)"> Download </a>
-          </div>
-          <div class="album-share album-tool">
-            <iconpark-icon name="save"></iconpark-icon><a id="editor" href="javascript:void(0)"> Editor </a>
           </div>
           <div class="album-share album-tool">
             <iconpark-icon name="grid-nine"></iconpark-icon><a id="grid" href="javascript:void(0)"> Grid </a>
@@ -877,7 +910,6 @@
         var normalWrapper = $("#normal-wrapper");
         var normalData = $("#no-exif-data");
         var name = getParam('name');
-        var editor = $("#editor");
         imgno = 0;
         imgLink = imageBox.src;
         // Monotonic token: guards against a slow earlier high-res load finishing
@@ -993,19 +1025,14 @@
         }
 
         $('#download').click(function () {
-          var node = document.getElementById('all-pic');
-          html2canvas(node, {
-            useCORS: true,
-            allowTaint: true,
-            scrollX: 0,
-            scrollY: 0,
-          }).then(function (canvas) {
-            simulateDownloadImageClick(canvas.toDataURL('image/png'),  name + '.png');
+          downloadFramedPhoto({
+            node: document.getElementById('all-pic'),
+            img: imageBox,
+            fullSrc: imgLink,      // 当前选中照片的原图，不是缩略图
+            filename: name,
+            button: this,
           });
         });
-        editor.click(function () {
-          window.open('https://aven9.github.io/kyuu-gallery/editor?file=' + encodeURIComponent(imgLink));
-        })
         // key
         window.onkeydown = function album_hotkey() {
           //[键盘快捷键] 左箭头 上一张
@@ -1104,7 +1131,7 @@
       </script>
       <style>
         body {
-          background-color: #fff;
+          background-color: var(--surface-2);
         }
 
         .fullscreen-pic {
@@ -1131,7 +1158,7 @@
         }
 
         .pic-item {
-          background-color: black;
+          background-color: var(--photo-mat);
           background-size: cover;
           background-position: center;
           transition: all .1s ease-in-out;
@@ -1187,7 +1214,7 @@
         .album-tool {
           display: inline-flex;
           font-size: .8em;
-          color: #71afdd;
+          color: var(--main-color);
           gap: 4px;
           padding-bottom: 4px;
         }
@@ -1198,14 +1225,30 @@
         }
 
         .album-item {
-          background-color: black;
+          background-color: var(--surface-2);
           aspect-ratio: 1 / 1;
-          border: 0.8px solid black;
-          border-radius: 2px;
-          min-height: 100px;
-          min-width: 100px;
-          background-size: cover;
-          background-position: center;
+          border: 0.8px solid var(--border-subtle);
+          border-radius: var(--tile-radius);
+          /* 尺寸必须写死。以前 .album-item 是个空 <a>（背景图不产生内容尺寸），
+             靠 min-width 就能收成小方块；现在里面装了张 1000px 的缩略图，
+             flex 基准尺寸会变成 1000px，不写死就会把整条缩略图带撑爆。 */
+          width: 100px;
+          height: 100px;
+          flex: 0 0 auto;
+          position: relative;
+          overflow: hidden;
+        }
+
+        /* 缩略图改用真 <img>（原来是 lazyload.js 往 <a> 上刷 background-image），
+           好处是走浏览器原生的 loading/decoding。pointer-events: none 让点击穿透到
+           外层 <a>——changeimg() 读的是 event.target 上的 data-src，不穿透就点不动了；
+           顺带也禁掉了缩略图被拖走的默认行为。 */
+        .album-item img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          pointer-events: none;
         }
 
         @media (max-width: 768px) {
@@ -1303,15 +1346,15 @@
           }
 
           .pic-item {
-            background-color: black;
+            background-color: var(--photo-mat);
           }
 
           .album-item {
-            background-color: black;
+            background-color: var(--photo-mat);
           }
 
           .album-item {
-            border: 0.8px solid white;
+            border: 0.8px solid var(--border-subtle);
           }
         }
 
@@ -1355,25 +1398,12 @@
 <link rel="stylesheet" href="" />
 <script src="/kyuu-gallery/js/fancybox.umd.js" defer></script>
 
-<!-- mdui -->
-
 <!-- busuanzi -->
 
 <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script> -->
 
 <!-- highlightjs -->
 
-
-<script src="/kyuu-gallery/js/highlight.min.js"></script>
-
-<script>window.addEventListener('load', () => {
-  hljs.highlightAll(); // initialize highlighting
-});</script>
-<script>
-  $("pre.code").each(function() {
-    $(this).html("<ol><li>" + $(this).html().replace(/\n/g, "\n</li><li>") + "\n</li></ol>");
-  });
-</script>
 
 
 
@@ -1405,6 +1435,62 @@
 <!---->
 <!---->
 <!--首页键盘快捷键-->
+
+
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var KEY = 'sdt.overrides.v1';
+
+  window.__sdtDefaultSkin = 'modern';
+  window.__sdtShowButton = false;
+
+  // ── 1) 重放覆盖 ────────────────────────────────────────────────────────
+  try {
+    var saved = JSON.parse(localStorage.getItem(KEY)) || {};
+    if (saved['data-skin']) root.dataset.skin = saved['data-skin'];
+    Object.keys(saved).forEach(function (k) {
+      if (k !== 'data-skin') root.style.setProperty(k, saved[k]);
+    });
+  } catch (e) { /* localStorage 不可用（隐私模式等）时就当没存过 */ }
+
+  // ── 2) Shift+D ─────────────────────────────────────────────────────────
+  var loading = false;
+
+  function summon() {
+    if (window.__sdtToggle) { window.__sdtToggle(); return; }   // 已加载，直接开关
+    if (loading) return;
+    loading = true;
+    var s = document.createElement('script');
+    s.src = '/kyuu-gallery/js/skin-devtool.js';
+    s.onload = function () {
+      window.__sdtInit();
+      window.__sdtToggle();      // 首次唤出直接打开，不用再按一次
+    };
+    s.onerror = function () {
+      loading = false;
+      console.warn('[skin-devtool] 加载失败：' + s.src);
+    };
+    document.head.appendChild(s);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'D' || !e.shiftKey || e.ctrlKey || e.metaKey || e.altKey) return;
+    // 输入焦点保护。主题原有的 Shift+1..5 快捷键没做这个，在评论框里敲字会误触
+    // （上游 e538133 也修过一次同类问题）。这里从一开始就带上。
+    var el = document.activeElement;
+    if (el && (el.isContentEditable ||
+               /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return;
+    e.preventDefault();
+    summon();
+  });
+
+  // 配置里开了浮标，就得先把面板加载出来才有按钮可点
+  if (window.__sdtShowButton) summon();
+})();
+</script>
+
 
   <style>
   :root {
